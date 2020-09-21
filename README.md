@@ -9,7 +9,7 @@ Our client Zef Energy approached us to fix their "new client onboarding process"
 
 Our application ZEO fixed the above problems by creating a step by step experience for the client to follow and submit all the necessary information needed which we then collected and sent as an email to ZEF. Reducing the need for multiple interactions and creating a better experience for both parties.
 
-To see the fully functional site, please visit: [Deployed](https://infinite-wildwood-94061.herokuapp.com/#/home)
+To see the fully functional site, please visit: [Free Deployed Demo - takes up to 1 minute on initial load](https://infinite-wildwood-94061.herokuapp.com/#/home)
 
 ### Prerequisites
 
