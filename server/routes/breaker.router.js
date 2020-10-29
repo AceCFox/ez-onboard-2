@@ -1,8 +1,6 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-const AWS = require ('aws-sdk');
-
 
 const {rejectUnauthenticated} = require("../modules/authentication-middleware");
 
