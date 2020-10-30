@@ -3,7 +3,6 @@ const pool = require("../modules/pool");
 const router = express.Router();
 const {rejectUnauthenticated} = require("../modules/authentication-middleware");
 
-
 router.get("/:id", rejectUnauthenticated, (req, res) => {
     const queryString = `SELECT * FROM "zefnet_user" WHERE "organization_id" = $1
       ORDER BY "last_name" ASC;`;
