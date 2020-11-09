@@ -2,9 +2,18 @@ const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
 const {rejectUnauthenticated} = require("../modules/authentication-middleware");
+const AWS =  require('aws-sdk');
+const RDS = new AWS.RDSDataService({region: 'us-east-2'});
 
 
 router.get("/:id", rejectUnauthenticated, (req, res) => {
+    let params = {
+      resourceArn: 'arn:aws:rds:us-east-2:635402171575:cluster:aurora-serverless-trial2',
+      secretArn: 'arn:aws:secretsmanager:us-east-2:635402171575:secret:rds-db-credentials/cluster-3AHAKDYRE47KCVEKV2KQTHG7TE/postgres-cPjWDP',
+      database: 'ez_onboard'
+
+    }
+
     const queryString = `SELECT * FROM "zefnet_user" WHERE "organization_id" = $1
       ORDER BY "last_name" ASC;`;
     const postValues = [
