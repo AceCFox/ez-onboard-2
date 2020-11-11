@@ -29,45 +29,23 @@
         "development": {
             "user": "ubuntu",
             "host": "ec2-18-217-150-107.us-east-2.compute.amazonaws.com",
-            "key": "ez-onboard-kwy.pem",
+            "key": "./ez-onboard-kwy.pem",
             "ref": "origin/aws-deploy",
             "repo": "https://github.com/GayofReckoning/EZ_Onboard.git",
-            "path": "/Prime/Tier 3/zef-energy-ez-onboarding",
-            "pre-setup": "pre-setup.script",
+            "path": "/home/ubuntu/ez-onboarding",
+            "pre-setup": "./pre-setup.script",
             "post-deploy": "pm2 startOrRestart ecosystem.json;"
         },
         "development-release": {
             "user": "ubuntu",
             "host": "ec2-18-217-150-107.us-east-2.compute.amazonaws.com",
-            "key": "ez-onboard-kwy.pem",
+            "key": "./ez-onboard-kwy.pem",
             "ref": "origin/aws-deploy",
             "repo": "https://github.com/GayofReckoning/EZ_Onboard.git",
-            "path": "/Prime/Tier 3/zef-energy-ez-onboarding",
-            "pre-setup": "pre-setup.script",
+            "path": "/home/ubuntu/ez-onboarding",
+            "pre-setup": "./pre-setup.script",
             "post-setup": "hash -d npm;sudo npm install",
             "post-deploy": "pm2 startOrRestart ecosystem.json;"
-        },
-        "test-release": {
-            "user": "ubuntu",
-            "host": "ec2-18-217-150-107.us-east-2.compute.amazonaws.com",
-            "key": "ez-onboard-kwy.pem",
-            "ref": "origin/aws-deploy",
-            "repo": "https://github.com/GayofReckoning/EZ_Onboard.git",
-            "path": "/Prime/Tier 3/zef-energy-ez-onboarding",
-            "pre-setup": "pre-setup.script",
-            "post-setup": "sudo npm install",
-            "post-deploy": "hash -d npm;sudo npm install && pm2 startOrRestart ecosystem.json;"
-        },
-        "production": {
-            "user": "ubuntu",
-            "host": "ec2-18-217-150-107.us-east-2.compute.amazonaws.com",
-            "key": "ez-onboard-kwy.pem",
-            "ref": "origin/aws-deploy",
-            "repo": "https://github.com/GayofReckoning/EZ_Onboard.git",
-            "path": "/Prime/Tier 3/zef-energy-ez-onboarding",
-            "pre-setup": "pre-setup.script",
-            "post-setup": "sudo npm install",
-            "post-deploy": "hash -d npm;sudo npm install && pm2 startOrRestart ecosystem.json;"
         }
     }
 }
