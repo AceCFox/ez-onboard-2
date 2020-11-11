@@ -43,7 +43,7 @@
             "repo": "https://github.com/GayofReckoning/EZ_Onboard.git",
             "path": "/Prime/Tier 3/zef-energy-ez-onboarding",
             "post-setup": "hash -d npm;sudo npm install",
-            "post-deploy": "pm2 startOrRestart ecosystem.json; --only sever;"
+            "post-deploy": "pm2 startOrRestart ecosystem.json;"
         },
         "test-release": {
             "user": "ubuntu",
