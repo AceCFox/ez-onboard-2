@@ -14,7 +14,7 @@
         },
         {
             "name": "client",
-            "script": "react-scripts start",
+            "script": "npm run client",
             "watch": true,
             "max_restarts": 20,
             "instances": 1,
