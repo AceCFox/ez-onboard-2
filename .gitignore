@@ -67,3 +67,6 @@ package-lock.json
 
 #put your email credentials in the file called mailer.js
 mailer.js
+
+#aws key
+ez-onboard-kwy.pem
