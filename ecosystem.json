@@ -29,7 +29,7 @@
         "development": {
             "user": "ubuntu",
             "host": "ec2-18-217-150-107.us-east-2.compute.amazonaws.com",
-            "key": "c:/path/to/ez-onboard-kwy.pem",
+            "key": "ez-onboard-kwy.pem",
             "ref": "origin/aws-deploy",
             "repo": "https://github.com/GayofReckoning/EZ_Onboard.git",
             "path": "/Prime/Tier 3/zef-energy-ez-onboarding",
@@ -38,7 +38,7 @@
         "development-release": {
             "user": "ubuntu",
             "host": "ec2-18-217-150-107.us-east-2.compute.amazonaws.com",
-            "key": "c:/path/to/ez-onboard-kwy.pem",
+            "key": "ez-onboard-kwy.pem",
             "ref": "origin/aws-deploy",
             "repo": "https://github.com/GayofReckoning/EZ_Onboard.git",
             "path": "/Prime/Tier 3/zef-energy-ez-onboarding",
@@ -48,7 +48,7 @@
         "test-release": {
             "user": "ubuntu",
             "host": "ec2-18-217-150-107.us-east-2.compute.amazonaws.com",
-            "key": "c:/path/to/ez-onboard-kwy.pem",
+            "key": "ez-onboard-kwy.pem",
             "ref": "origin/aws-deploy",
             "repo": "https://github.com/GayofReckoning/EZ_Onboard.git",
             "path": "/Prime/Tier 3/zef-energy-ez-onboarding",
@@ -58,7 +58,7 @@
         "production": {
             "user": "ubuntu",
             "host": "ec2-18-217-150-107.us-east-2.compute.amazonaws.com",
-            "key": "c:/path/to/ez-onboard-kwy.pem",
+            "key": "ez-onboard-kwy.pem",
             "ref": "origin/aws-deploy",
             "repo": "https://github.com/GayofReckoning/EZ_Onboard.git",
             "path": "/Prime/Tier 3/zef-energy-ez-onboarding",
