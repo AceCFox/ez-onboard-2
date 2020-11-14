@@ -60,10 +60,10 @@ typings/
 
 # dotenv environment variables file
 .env
+ecosystem.json
 
 # ignore package-lock as it complicates merging
 package-lock.json
-
 
 #put your email credentials in the file called mailer.js
 mailer.js
