@@ -46,7 +46,7 @@
             "path": "/home/ubuntu/ez-onboarding",
             "pre-setup": "./pre-setup.script",
             "post-setup": "hash -d npm;sudo npm install",
-            "post-deploy": "pm2 startOrRestart ecosystem.json;"
+            "post-deploy": "pm2 startOrRestart ecosystem.json --only server;"
         }
     }
 }
