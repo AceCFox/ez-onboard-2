@@ -35,6 +35,7 @@
             "repo": "https://github.com/GayofReckoning/EZ_Onboard.git",
             "path": "/home/ubuntu/ez-onboarding",
             "pre-setup": "./pre-setup.script",
+            "post-setup": "hash -d npm;npm install",
             "post-deploy": "pm2 startOrRestart ecosystem.json --only server;"
         },
         "development-release": {
