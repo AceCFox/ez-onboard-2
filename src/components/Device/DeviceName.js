@@ -171,7 +171,7 @@ class DeviceName extends Component {
               </div>
               <div>
                 <h3 className={classes.centerFont}>
-                  Good names should be short and memorable and descriptive..
+                  Good names should be short, memorable, and descriptive.
                 </h3>
               </div>
             </div>
