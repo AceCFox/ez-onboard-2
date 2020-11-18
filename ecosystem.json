@@ -3,7 +3,7 @@
         {
             "name": "server",
             "script": "node server/server.js",
-            "watch": true,
+            "watch": false,
             "max_restarts": 20,
             "instances": 1,
             "max_memory_restart": "200M",
@@ -18,7 +18,7 @@
         {
             "name": "cert_server",
             "script": "certificates/cert_server.js",
-            "watch": true,
+            "watch": false,
             "max_restarts": 20,
             "instances": 1,
             "max_memory_restart": "200M",
