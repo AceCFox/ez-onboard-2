@@ -17,7 +17,7 @@
         },
         {
             "name": "cert_server",
-            "script": "node certificates/.well-known/acme-challenge/cert_server.js",
+            "script": "certificates/cert_server.js",
             "watch": true,
             "max_restarts": 20,
             "instances": 1,
