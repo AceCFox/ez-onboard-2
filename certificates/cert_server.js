@@ -25,17 +25,17 @@ const certServer = http.createServer((req, res) => {
     //Get the cert challenge code if there is one - reject everything else
     let certCode = resolveCertCode(req, res);
     if (certCode) {
-​
+
         //Look for a file created by certbot in the configured path
         let challengePath = `${webrootPath}/.well-known/acme-challenge/${certCode}`
         console.log(`Certificate challenge: ${challengePath}`);
-​
+
         if (fs.existsSync(challengePath)) {
-​
+
             //Read the renewal data file
             const certData = fs.readFileSync(challengePath, 'ascii');
             console.log('Certificate data found!', certData);
-​
+
             //respond with the contents
             res.statusCode = 200;
             res.write(certData);
@@ -44,14 +44,14 @@ const certServer = http.createServer((req, res) => {
         }
         console.log('Certificate data NOT found');
     }
-​
+
     console.log('Cert request rejected');
-​
+
     res.statusCode = 405;
     res.statusMessage = "NotSupported";
     res.write("");
     res.end();
 })
-​
+
 //start listening for requests
 certServer.listen(port);
