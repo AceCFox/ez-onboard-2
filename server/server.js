@@ -1,14 +1,24 @@
 const express = require("express");
 require("dotenv").config();
 
+//https configuration
+const fs = require('fs')
+const https = require('https');
+const options = {
+  key: fs.readFileSync('../etc/letsencrypt/live/onboard.zefenergy.com/privkey.pem'),
+  cert: fs.readFileSync('../etc/letsencrypt/live/onboard.zefenergy.com/fullchain.pem')
+};
+
 const app = express();
 const bodyParser = require("body-parser");
 const sessionMiddleware = require("./modules/session-middleware");
-
 const passport = require("./strategies/user.strategy");
 
-// Route includes
+//expres https configuration
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
 
+// Route includes
 const userRouter = require('./routes/user.router');
 const addUserRouter = require('./routes/addUser.router');
 const organizationRouter = require('./routes/organization.router');
@@ -44,6 +54,6 @@ app.use(express.static("build"));
 const PORT = process.env.PORT || 5000;
 
 /** Listen * */
-app.listen(PORT, () => {
+httpsServer.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
 });
