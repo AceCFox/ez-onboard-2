@@ -5,8 +5,8 @@ require("dotenv").config();
 const fs = require('fs')
 const https = require('https');
 const options = {
-  key: fs.readFileSync('../etc/letsencrypt/live/onboard.zefenergy.com/privkey.pem'),
-  cert: fs.readFileSync('../etc/letsencrypt/live/onboard.zefenergy.com/fullchain.pem')
+  key: fs.readFileSync('/etc/letsencrypt/live/onboard.zefenergy.com/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/onboard.zefenergy.com/fullchain.pem')
 };
 
 const app = express();
