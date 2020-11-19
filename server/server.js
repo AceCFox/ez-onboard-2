@@ -16,7 +16,7 @@ const passport = require("./strategies/user.strategy");
 
 //expres https configuration
 const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app);
+const httpsServer = https.createServer(options, app);
 
 // Route includes
 const userRouter = require('./routes/user.router');
