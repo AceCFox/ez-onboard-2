@@ -9,13 +9,14 @@ const options = {
   cert: fs.readFileSync('/etc/letsencrypt/live/onboard.zefenergy.com/fullchain.pem')
 };
 
+//express app
 const app = express();
 const bodyParser = require("body-parser");
 const sessionMiddleware = require("./modules/session-middleware");
 const passport = require("./strategies/user.strategy");
 
-//expres https configuration
-const httpServer = http.createServer(app);
+//express https configuration
+//const httpServer = http.createServer(app);
 const httpsServer = https.createServer(options, app);
 
 // Route includes
