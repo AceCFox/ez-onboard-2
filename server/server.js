@@ -52,7 +52,7 @@ app.use('/api/device', deviceRouter);
 app.use(express.static("build"));
 
 // App Set //
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 443;
 
 /** Listen * */
 httpsServer.listen(PORT, () => {
