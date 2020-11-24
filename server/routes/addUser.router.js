@@ -5,7 +5,6 @@ const {rejectUnauthenticated} = require("../modules/authentication-middleware");
 const AWS =  require('aws-sdk');
 const RDS = new AWS.RDSDataService({region: 'us-east-2'});
 
-
 router.get("/:id", rejectUnauthenticated, (req, res) => {
     let params = {
       resourceArn: 'arn:aws:rds:us-east-2:635402171575:cluster:aurora-serverless-trial2',
