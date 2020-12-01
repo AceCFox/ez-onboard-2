@@ -122,3 +122,4 @@ MIT Copyright (c) 2020 Amir Mussa, Ace Fox, Robert Johnson
 THank you to Zef Energy for giving us the opportunity to employ our new skills and create this application.
 Thanks to Prime Digital Academy who equipped and helped me to make this application a reality. 
 Special shout out to Amir, Ace, and Rob for the hardwork put into the project.
+
