@@ -63,8 +63,8 @@ Built With:
 ![addUser](/images/addUser.gif)
 ![Device Track](/images/AddDevice.gif)
 
-## Installation
-Create a database named your ez_onboard,
+## Installation for local development
+Create a database named ez_onboard,
 The queries in the database.sql file are set up to create all the necessary tables and populate the needed data to allow the application to run correctly. The project is built on Postgres, so you will need to make sure to have that installed. We recommend using Postico to run those queries as that was used to create the queries,
 Open up your editor of choice and run an npm install
 Run `npm run server` in your terminal
@@ -75,14 +75,7 @@ Otherwise it is running on `localhost:3000`
 ### .env
 You will need to create a `.env` file and populate with the info below: 
             
-        USER_EMAIL=your_email
-        PASS=your_password
-
-Please replace `your_email` with the email address you'd like to send the finished onboarding packet from (the part before @gmail.com).
-Please replace `your_password` with the password to that corresponding email address.
-
-This file is already in your `.gitignore` so your email and password will not be uploaded.
-This will only work with Gmail
+       SERVER_SESSION_SECRET=<random_string_at_least_12_charactors>
 
 ## Lay of the Land
 
@@ -93,7 +86,7 @@ This will only work with Gmail
 
 ## Production Build
 
-Before pushing to Heroku, run `npm run build` in terminal. This will create a build folder that contains the code Heroku will be pointed at. You can test this build by typing `npm start`. Keep in mind that `npm start` will let you preview the production build but will **not** auto update.
+Before pushing to Heroku, run `npm run build` in terminal. This will create a build folder that contains the code AWS will be pointed at. You can test this build by typing `npm start`. Keep in mind that `npm start` will let you preview the production build but will **not** auto update.
 
 * Start postgres if not running already by using `brew services start postgresql`
 * Run `npm start`
@@ -101,19 +94,31 @@ Before pushing to Heroku, run `npm run build` in terminal. This will create a bu
 
 ## Deployment
 
-1. Create a new Heroku project
-2. Link the Heroku project to the project GitHub Repo
-3. Create an Heroku Postgres database
-4. Connect to the Heroku Postgres database from Postico
-5. Create the necessary tables
-6. Add an environment variable for `SERVER_SESSION_SECRET` with a nice random string for security
-7. Add environemnt variables for `USER__EMAIL` and `PASS` with the email info to send the final package from 
-8. In the deploy section, select manual deploy
+1. From the AWS console, create a new Aurora Serverless DB cluster with PostgreSQL compatability.
+        -   name your cluster "ez-onboarding-db"
+        -  set the username to postgres (default) and the master password to a unique password (e.g. sevenapples)
+        -  write down the VPC and subnet group you host it in (you will need them later)
+        -  create a new security group that allows access on ports 5000, 433, and 80
+        -  IMPORTANT: under additional configuration create an initial database name called "ez_onboard"
+2. Once you have created the database (will take several minutes) navigate to the db's console and click "modify"
+        -  under connectivity, click the box to enable web service data api and apply cluster modifications immediately.
+        -  navigate to Query Editor from the RDS console and select add new database credentials
+        -  connect to your ez_onboard database using your cluster name, postgres username and password
+        -  verify that your connection was successful by running the auto-generated SQL line in the editor
+                *if it was not successful, an error will show under Rows Returned
+        -  Once your connection is successful, copy and paste the SQL queries from the database.sql file in this repo and run them in the query editor. (Only once!)
+        - To test, run the query: ``` SELECT * FROM "device_type";``` which should return four rows!
+3. 
+4. 
+5. 
+6. 
+7. 
+8. 
 
 ## License
 MIT Copyright (c) 2020 Amir Mussa, Ace Fox, Robert Johnson
 
 ## Acknowledgement
-THank you to Zef Energy for giving us the opportunity to employ or new skills and create this application.
+THank you to Zef Energy for giving us the opportunity to employ our new skills and create this application.
 Thanks to Prime Digital Academy who equipped and helped me to make this application a reality. 
 Special shout out to Amir, Ace, and Rob for the hardwork put into the project.
