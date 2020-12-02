@@ -29,7 +29,7 @@
         "development": {
             "user": "ubuntu",
             "host": "ec2-3-20-238-164.us-east-2.compute.amazonaws.com",
-            "key": "./ez-onboard-kwy.pem",
+            "key": "./ez-onboard-key.pem",
             "ref": "origin/aws-deploy",
             "repo": "https://github.com/GayofReckoning/EZ_Onboard.git",
             "path": "/home/ubuntu/ez-onboarding",
@@ -40,7 +40,7 @@
         "development-release": {
             "user": "ubuntu",
             "host": "ec2-3-139-102-151.us-east-2.compute.amazonaws.com",
-            "key": "./ez-onboard-kwy.pem",
+            "key": "./ez-onboard-key.pem",
             "ref": "origin/aws-deploy",
             "repo": "https://github.com/GayofReckoning/EZ_Onboard.git",
             "path": "/home/ubuntu/ez-onboarding",

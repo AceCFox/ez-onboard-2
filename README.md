@@ -108,13 +108,13 @@ Before pushing to Heroku, run `npm run build` in terminal. This will create a bu
                 *if it was not successful, an error will show under Rows Returned
         -  Once your connection is successful, copy and paste the SQL queries from the database.sql file in this repo and run them in the query editor. (Only once!)
         - To test, run the query: ``` SELECT * FROM "device_type";``` which should return four rows!
-3. Create a new EC2 instance to house the front end of the application:
+3. To source this DB into the app, create a variable in the .env file called DATABASE_URL:
+        - it's value should be a string built with the followind formula:
+        - postgresql://username:password@
+        - the final form should look like the next line if you used postgres as a username and sevenapples as a password:
+        - DATABASE_URL: postgresql://postgres:sevenpples@aurora-serverless-trial2.cluster-cdq0gf9yqizb.us-east-2.rds.amazonaws.com:5432/ez_onboard
+4. Create a new EC2 instance to house the front end of the application:
         - 
-4. 
-5. 
-6. 
-7. 
-8. 
 
 ## License
 MIT Copyright (c) 2020 Amir Mussa, Ace Fox, Robert Johnson
