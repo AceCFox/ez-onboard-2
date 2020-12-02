@@ -108,7 +108,8 @@ Before pushing to Heroku, run `npm run build` in terminal. This will create a bu
                 *if it was not successful, an error will show under Rows Returned
         -  Once your connection is successful, copy and paste the SQL queries from the database.sql file in this repo and run them in the query editor. (Only once!)
         - To test, run the query: ``` SELECT * FROM "device_type";``` which should return four rows!
-3. 
+3. Create a new EC2 instance to house the front end of the application:
+        - 
 4. 
 5. 
 6. 

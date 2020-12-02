@@ -9,8 +9,7 @@
             "max_memory_restart": "200M",
             "env": {
                 "PORT": "443",
-                "EC2_ROLE_NAME": "ez-onboard-ec2-service-role",
-                "DATABASE_URL": "postgresql://postgres:cafeorange@aurora-serverless-trial2.cluster-cdq0gf9yqizb.us-east-2.rds.amazonaws.com:5432/ez_onboard"
+                "EC2_ROLE_NAME": "ez-onboard-ec2-service-role"
             }
         },
         {
