@@ -68,4 +68,4 @@ package-lock.json
 mailer.js
 
 #aws key
-ez-onboard-kwy.pem
+ez-onboard-key.pem
