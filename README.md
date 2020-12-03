@@ -5,7 +5,7 @@ Duration: 1 Month Project
 
 ZEFNET EZ ONBOARDING (ZEO) was worked on over the course of a month, and can be split into two parts: one week was spent planning and designing the application, while the last three weeks were spent building and testing the app. 
 
-Our client Zef Energy approached us to fix their "new client onboarding process" with one main problem - the ticket-based onboarding system for new customers. Their former system was very complex, and customers didn't always submit all the necessary information required for signup. This led to Zef Energy needing to have multiple interaction with clients that cost hundreds of dollars per client when signing up, creating a frustration experience for both the client and Zef. 
+Our client ZEF Energy approached us to fix their "new client onboarding process" with one main problem - the ticket-based onboarding system for new customers. Their former system was very complex, and customers didn't always submit all the necessary information required for signup. This led to Zef Energy needing to have multiple interaction with clients that cost hundreds of dollars per client when signing up, creating a frustration experience for both the client and Zef. 
 
 Our application ZEO fixed the above problems by creating a step by step experience for the client to follow and submit all the necessary information needed which we then collected and sent as an email to ZEF. Reducing the need for multiple interactions and creating a better experience for both parties.
 
@@ -92,13 +92,13 @@ Before pushing to Heroku, run `npm run build` in terminal. This will create a bu
 * Run `npm start`
 * Navigate to `localhost:5000`
 
-## Deployment
+## AWS Deployment
 
 1. From the AWS console, create a new Aurora Serverless DB cluster with PostgreSQL compatability.
      - name your cluster "ez-onboarding-db"
      -  set the username to postgres (default) and the master password to a unique password (e.g. sevenapples)
      -  write down the VPC and subnet group you host it in (you will need them later)
-     -  create a new security group that allows access on ports 5000, 433, and 80
+     -  create a new security group that allows access on ports 5000, 433, and 80 as well as SSH access from your IP address.
      -  IMPORTANT: under additional configuration create an initial database name called "ez_onboard"
 2. Once you have created the database (will take several minutes) navigate to the db's console and click "modify"
      -  under connectivity, click the box to enable web service data api and apply cluster modifications immediately.
@@ -109,12 +109,14 @@ Before pushing to Heroku, run `npm run build` in terminal. This will create a bu
      -  Once your connection is successful, copy and paste the SQL queries from the database.sql file in this repo and run them in the query editor. (Only once!)
      - To test, run the query: ``` SELECT * FROM "device_type";``` which should return four rows!
 3. To source this DB into the app, create a variable in the .env file called DATABASE_URL:
-     - it's value should be a string built with the followind formula: 
+     -  (If you did not yet set up the SERVER_SESSION_SECRET variable in this .env file, follow the directions under .env above and then return to this step)
+     - DATABASE_URL's value should be a string built with the following formula: 
      - postgresql://username:password@DBendpoint:Port/DBname
      - the final form should look like the next line if you used postgres as a username and sevenapples as a password:
      - DATABASE_URL: postgresql://postgres:sevenpples@ez-onboard-trial-2.cluster-cdq0gf9yqizb.us-east-2.rds.amazonaws.com:5432/ez_onboard
 4. Create a new EC2 instance to house the front end of the application:
      - From the AWS console, launch a new ec2 instance
+     - Name this instance ez-onboard-server
      - Choose Ubuntu SSD AMI
      - For optimal performance, chose a type t2.small or larger instance (React files are large!)
      - Ensure that both the Network/VPC and Subnet for this instance are the same as the one the database is housed in.
@@ -122,7 +124,24 @@ Before pushing to Heroku, run `npm run build` in terminal. This will create a bu
      - After clicking launch, create a new keypair called ez-onboard-key.pem
           * IMPORTANT: save this .pem file in the base directory for this project (adjacent to this readme)
      - Launch instance (will take a few minutes)
-5.  
+5.  Configure ecosystem.json scripts to connect to EC2 instance
+     - Under deploy, either configure the development script or create a new script with the following credentials:
+          * "user": "ubuntu",
+          * "host": Public IPv4 DNS,
+          * "key": "./ez-onboard-key.pem",
+          * "ref": "origin/main",
+          * "repo": "https://github.com/matthewblackler/zefnetonboard.git",  (or replace with repo)
+          * "path": "/home/ubuntu/ez-onboarding",
+          * "pre-setup": "./pre-setup.script",
+          * "post-setup": "hash -d npm;npm install",
+          * "post-deploy": "pm2 startOrRestart ecosystem.json"
+6.  Run deployment script
+     - Open a terminal window and navigate to the folder containing this Readme file.
+     - modify the permissions of your access key by running:
+          * chmod 400 ez-onboard-key.pem
+
+
+
 
 ## License
 MIT Copyright (c) 2020 Amir Mussa, Ace Fox, Robert Johnson
