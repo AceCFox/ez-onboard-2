@@ -143,6 +143,7 @@ Before pushing to Heroku, run `npm run build` in terminal. This will create a bu
           * git push origin master
      - Use PM2 to setup the server environment and clone the code onto the server by referencing the new entry in the ./ecosystem.json file.
           * PM2 deploy development-release setup
+          
 
 
 
