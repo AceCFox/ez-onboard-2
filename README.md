@@ -125,6 +125,7 @@ Before pushing to Heroku, run `npm run build` in terminal. This will create a bu
           * IMPORTANT: save this .pem file in the base directory for this project (adjacent to this readme)
      - Launch instance (will take a few minutes)
 5.  Configure ecosystem.json scripts to connect to EC2 instance
+     - Note: The following directions are also detailed on [ZEF Deployment Documentation](http://docs.zefenergy.com/ocpp/deployment/)
      - Under deploy, either configure the development script or create a new script with the following credentials:
           * "user": "ubuntu",
           * "host": Public IPv4 DNS,
@@ -144,7 +145,7 @@ Before pushing to Heroku, run `npm run build` in terminal. This will create a bu
      - Use PM2 to setup the server environment and clone the code onto the server by referencing the new entry in the ./ecosystem.json file.
           * PM2 deploy development setup
      - Note: this first attelpt will fail. Despite the earlier steps to create a key relationship between the EC2 Server and CodeCommit, the only proper way to verify that relationship is to ensure the CodeCommit domain and IP is added to the list of 'known hosts' on the EC2 server. That will not happen until the EC2 Server has verified the authenticity of the host. Unfortunately the automated script cannot handle that step as it deliberately requires user input, so it may fail. To manually perform this step, log into the EC2 server via a shell connection and attempt a manual clone of the code from Github.
-7. Manually SSH into the EC2 instance and clone the code from github
+7. Manually SSH into the EC2 instance and clone the code from github:
      - Open a new terminal window and navigate to this directory
      - using the EC2 instance's Public IPv4 DNS address, run the following command to establish a connection:
           * ssh -i ez-onboard-key.pem ubuntu@Public IPv4 DNS address
@@ -153,9 +154,10 @@ Before pushing to Heroku, run `npm run build` in terminal. This will create a bu
      - You will have to log in to a github account with access to the above repo using a username and password.
      - Once the clone is complete you can go back and re-run the setup command which should succeed now!
           *  PM2 deploy development setup
-          *  PM2 deploy development 
+          *  PM2 deploy development update
+               - Also use this command to push any subsequent code changes to the environment
      - once the delpoyment script has run successfully, you can go back and delete the manually cloned files from the instance
-
+8. Listening on Port 80 without using root
 
 
 
