@@ -108,12 +108,12 @@ Before pushing to Heroku, run `npm run build` in terminal. This will create a bu
         * if it was not successful, an error will show under Rows Returned
      -  Once your connection is successful, copy and paste the SQL queries from the database.sql file in this repo and run them in the query editor. (Only once!)
      - To test, run the query: ``` SELECT * FROM "device_type";``` which should return four rows!
-3. To source this DB into the app, create a variable in the .env file called DATABASE_URL:
+3. To source this DB into the app, create a variable in the .env file called DATABASE_URL=
      -  (If you did not yet set up the SERVER_SESSION_SECRET variable in this .env file, follow the directions under .env above and then return to this step)
      - DATABASE_URL's value should be a string built with the following formula: 
      - postgresql://username:password@DBendpoint:Port/DBname
      - the final form should look like the next line if you used postgres as a username and sevenapples as a password:
-     - DATABASE_URL: postgresql://postgres:sevenpples@ez-onboard-trial-2.cluster-cdq0gf9yqizb.us-east-2.rds.amazonaws.com:5432/ez_onboard
+     - DATABASE_URL=postgresql://postgres:sevenpples@ez-onboard-trial-2.cluster-cdq0gf9yqizb.us-east-2.rds.amazonaws.com:5432/ez_onboard
 4. Create a new EC2 instance to house the front end of the application:
      - From the AWS console, launch a new ec2 instance
      - Name this instance ez-onboard-server
@@ -158,6 +158,9 @@ Before pushing to Heroku, run `npm run build` in terminal. This will create a bu
                - Also use this command to push any subsequent code changes to the environment
      - once the delpoyment script has run successfully, you can go back and delete the manually cloned files from the instance
 8. Listening on Port 80 without using root
+     - Inside the EC2 instance, install authbind to allow binding to port 80
+          * sudo apt-get install -y authbind
+     - 
 
 
 
