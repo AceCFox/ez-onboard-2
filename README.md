@@ -107,7 +107,7 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
      - name your cluster "ez-onboarding-db"
      -  set the username to postgres (default) and the master password to a unique password (e.g. sevenapples)
      -  write down the VPC and subnet group you host it in (you will need them later)
-     -  create a new security group that allows access on ports 5000, 433, and 80 as well as SSH access from your IP address.
+     -  create a new security group that allows access on ports 5000, 433, 22, and 80, as well as SSH access from your IP address.
      -  IMPORTANT: under additional configuration create an initial database name called "ez_onboard"
 2. Once you have created the database (will take several minutes) navigate to the db's console and click "modify"
      -  under connectivity, click the box to enable web service data api and apply cluster modifications immediately.
@@ -203,6 +203,23 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
           * `sudo certbot certonly --webroot`
      - enter your email address when prompted
      - when asked to supply domain name, enter onboard.zefenergy.com 
+     - you will then be asked to input the webroot for onboard.zefenergy.com. Enter: 
+          * `/home/ubuntu/ez-onboarding/current/certificates` 
+     - if successful, you will see the following message: 
+          ```
+          IMPORTANT NOTES:
+          Congratulations! Your certificate and chain have been saved at:
+          /etc/letsencrypt/live/onboard.zefenergy.com/fullchain.pem
+          Your key file has been saved at:
+          /etc/letsencrypt/live/onboard.zefenergy.com/privkey.pem
+          Your cert will expire on 2021-02-16. To obtain a new or tweaked
+          version of this certificate in the future, simply run certbot
+          again. To non-interactively renew *all* of your certificates, run
+          "certbot renew"
+          ```
+     - Now we need to provide permissions to read the certificates from the Let's Encrypt folder, which is restricted at present.
+          * `sudo chmod 755 /etc/letsencrypt/live/`
+          * `sudo chmod 755 /etc/letsencrypt/archive/`
 11. Listening on Port 443
      - Within the instance, run the same authbind commands as listed in step 9, but configuring for port 443:
           * `sudo touch /etc/authbind/byport/443`
@@ -212,7 +229,19 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
           * `authbind --deep pm2 update`
      - after PM2 has restarted, you should see it listening on port 443 when running the following command from within the EC2 instance:
           * `netstat p1nt`
-12.  Revisit your connection between the 
+12.  Revisit your connection between the EC2 Instance and the Aurora Serverless DB
+     - The two should both be on the same VPC
+     - Both should be on the same subnet within the VPC
+     - They should share at least one security group
+     - the security group should allow access to all ports that displayed when you run `netstat P1nt` within your EC2 instance
+13. Troubleshooting
+     - The deployed website should now be accessable at [onboard.zefenergy.com](https://onboard.zefenergy.com/#/home)
+          * if this does not display a log in screen, open developer tools in chrome to reveal console errors.
+     - from within the EC2 instance, run the following command that should show an online server on port 443 and an online certserver on port 80:
+          * ` pm2 list `
+     - the following command in the EC2 instance should show recent logs that you can compare to the console logs for more information about any errors.
+          * `pm2 logs`
+     - Email [Ace](ace.fox@zefenergy.com) with any questions not covered in the above directions :)
 
 ## License
 MIT Copyright (c) 2020 Amir Mussa, Ace Fox, Robert Johnson
