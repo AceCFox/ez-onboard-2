@@ -157,7 +157,16 @@ Before pushing to Heroku, run `npm run build` in terminal. This will create a bu
           *  PM2 deploy development update
                - Also use this command to push any subsequent code changes to the environment
      - once the delpoyment script has run successfully, you can go back and delete the manually cloned files from the instance
-8. Listening on Port 80 without using root
+8. Manually add the .env file in to the source folder in the EC2 instance
+     - Using the SSH command from earlier, connect to the ec2 instance from your terminal 
+          * ssh -i ez-onboard-key.pem ubuntu@Public IPv4 DNS address
+     - navigate to /ez_onboarding/source
+     - Open a new .env file using vi
+          * vi .env
+     - Copy and paste the contents from your local .env file and then exit with the commad :wq!
+          * SERVER_SESSION_SECRET=long_random_string
+          * DATABASE_URL=postgresql://postgres:sevenpples@ez-onboard-trial-2.cluster-cdq0gf9yqizb.us-east-2.rds.amazonaws.com:5432/ez_onboard
+9. Listening on Port 80 without using root
      - Inside the EC2 instance, install authbind to allow binding to port 80
           * sudo apt-get install -y authbind
      - 
