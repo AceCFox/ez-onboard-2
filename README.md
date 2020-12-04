@@ -86,7 +86,7 @@ You will need to create a `.env` file and populate with the info below:
 
 ## Production Build
 
-Before pushing to Heroku, run `npm run build` in terminal. This will create a build folder that contains the code AWS will be pointed at. You can test this build by typing `npm start`. Keep in mind that `npm start` will let you preview the production build but will **not** auto update.
+Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This will create a build folder that contains the code AWS will be pointed at. You can test this build by typing `npm start`. Keep in mind that `npm start` will let you preview the production build but will **not** auto update.
 
 * Start postgres if not running already by using `brew services start postgresql`
 * Run `npm start`
@@ -94,6 +94,11 @@ Before pushing to Heroku, run `npm run build` in terminal. This will create a bu
 
 ## AWS Deployment
 
+0. (Prerequesites)
+     - In a terminal window, navigate to this folder and run the following commands to install local dependancies and compile the build
+          * npm install
+          * npm run build
+     - Follow the instructions under env above to create and configure a local .env file with a SERVER_SESSION_SECRET string. (used for salting and hashing passwords)
 1. From the AWS console, create a new Aurora Serverless DB cluster with PostgreSQL compatability.
      - name your cluster "ez-onboarding-db"
      -  set the username to postgres (default) and the master password to a unique password (e.g. sevenapples)
@@ -169,8 +174,15 @@ Before pushing to Heroku, run `npm run build` in terminal. This will create a bu
 9. Listening on Port 80 without using root
      - Inside the EC2 instance, install authbind to allow binding to port 80
           * sudo apt-get install -y authbind
-     - 
-
+     - Within the instance, run the following authbind commands useing the username ubuntu
+          * sudo touch /etc/authbind/byport/80
+          * sudo chown ubuntu /etc/authbind/byport/80
+          * sudo chmod 755 /etc/authbind/byport/80  
+     - To add an alias to the user that runs the pm2 profile create a ~/.bash_aliases file in vi
+          * vi .bash_aliases
+     - Add the following line in the file and save with :wq
+          * alias pm2='authbind --deep pm2'
+     - immediately after saving 
 
 
 ## License
