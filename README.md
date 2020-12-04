@@ -99,20 +99,20 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
           * ``` node -v```
           * `npm -v`
           * `which ssh`
-     - In a terminal window, navigate to this folder and run the following commands to install local dependancies and compile the build
+     - In a terminal window, navigate to this folder and run the following commands to install local dependancies and compile the production build:
           * `npm install`
           * `npm run build`
      - Follow the instructions under env above to create and configure a local .env file with a SERVER_SESSION_SECRET string. (used for salting and hashing passwords)
 1. From the AWS console, create a new Aurora Serverless DB cluster with PostgreSQL compatability.
      - name your cluster "ez-onboarding-db"
      -  set the username to postgres (default) and the master password to a unique password (e.g. sevenapples)
-     -  write down the VPC and subnet group you host it in (you will need them later)
-     -  create a new security group that allows access on ports 5000, 433, 22, and 80, as well as SSH access from your IP address.
-     -  IMPORTANT: under additional configuration create an initial database name called "ez_onboard"
-2. Once you have created the database (will take several minutes) navigate to the db's console and click "modify"
+     -  write down the VPC and subnet group you are hosting  it in (you will need them later)
+     -  create a new security group that allows access on ports 5000 and  22 - SSH access from your IP address, as well as access from ALL addresses (0.0.0.0) on ports 80 and 443(HTTPS).
+     -  **IMPORTANT: under additional configuration create an initial database name called "ez_onboard"**
+2. Once you have created the database (will take several minutes) navigate to the db's console and click "modify".
      -  under connectivity, click the box to enable web service data api and apply cluster modifications immediately.
      -  navigate to Query Editor from the RDS console and select add new database credentials
-     -  connect to your ez_onboard database using your cluster name, postgres username and password
+     -  connect to your database (ez_onboard ) using your cluster name (ez-onboarding-db), username (postgres) and password (e.g. sevenapples)
      -  verify that your connection was successful by running the auto-generated SQL line in the editor
         * if it was not successful, an error will show under Rows Returned
      -  Once your connection is successful, copy and paste the SQL queries from the database.sql file in this repo and run them in the query editor. (Only once!)
@@ -218,8 +218,8 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
           "certbot renew"
           ```
      - Now we need to provide permissions to read the certificates from the Let's Encrypt folder, which is restricted at present.
-          * `sudo chmod 755 /etc/letsencrypt/live/`
-          * `sudo chmod 755 /etc/letsencrypt/archive/`
+          * `sudo chmod -R 755 /etc/letsencrypt/live/`
+          * `sudo chmod -R 755 /etc/letsencrypt/archive/`
 11. Listening on Port 443
      - Within the instance, run the same authbind commands as listed in step 9, but configuring for port 443:
           * `sudo touch /etc/authbind/byport/443`
