@@ -192,8 +192,18 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
           * autbind --deep pm2 update
      - after PM2 has restarted, you should see it listening on port 80 when running the following command from within the EC2 instance:
           * netstat p1nt
-10. Create certification
+10. Supply SSL certificate as input to client app
      - f
+11. Listening on Port 443
+     - Within the instance, run the same authbind commands as listed in step 9, but configuring for port 443:
+          * sudo touch /etc/authbind/byport/443
+          * sudo chown ubuntu /etc/authbind/byport/443
+          * sudo chmod 755 /etc/authbind/byport/443 
+     - Ensure that pm2 is updated with authbind:
+          * autbind --deep pm2 update 
+     - after PM2 has restarted, you should see it listening on port 443 when running the following command from within the EC2 instance:
+          * netstat p1nt
+12.  Revisit your connection between the 
 
 ## License
 MIT Copyright (c) 2020 Amir Mussa, Ace Fox, Robert Johnson
