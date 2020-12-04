@@ -75,7 +75,7 @@ Otherwise it is running on `localhost:3000`
 ### .env
 You will need to create a `.env` file and populate with the info below: 
             
-       SERVER_SESSION_SECRET=<random_string_at_least_12_charactors>
+       SERVER_SESSION_SECRET=<random_string_at_least_12_characters>
 
 ## Lay of the Land
 
@@ -95,6 +95,10 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
 ## AWS Deployment
 
 0. (Prerequesites)
+     - Ensure that you have node, npm, and ssh installed with the following terminal commands:
+          * node -v
+          * npm -v
+          * which ssh
      - In a terminal window, navigate to this folder and run the following commands to install local dependancies and compile the build
           * npm install
           * npm run build
@@ -182,8 +186,14 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
           * vi .bash_aliases
      - Add the following line in the file and save with :wq
           * alias pm2='authbind --deep pm2'
-     - immediately after saving 
-
+     - Immediately after saving run the following command:
+          * source ~/.bash_aliases
+     - Ensure that pm2 is updated with authbind:
+          * autbind --deep pm2 update
+     - after PM2 has restarted, you should see it listening on port 80 when running the following command from within the EC2 instance:
+          * netstat p1nt
+10. Create certification
+     - f
 
 ## License
 MIT Copyright (c) 2020 Amir Mussa, Ace Fox, Robert Johnson
