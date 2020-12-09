@@ -16,7 +16,7 @@
     "express": "^4.16.4",
     "material-ui-phone-number": "^2.2.6",
     "material-ui-table-edit": "^3.0.3",
-    "nodemailer": "^6.4.11",
+    "nodemailer": "^6.4.16",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pg": "^8.2.1",

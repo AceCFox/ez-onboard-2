@@ -177,7 +177,7 @@ class Submit extends Component {
       payload: this.props.state.organization.id,
     });
     console.log(onboardPackage);
-    // this.props.dispatch({ type: "MAIL_PACKAGE", payload: onboardPackage });
+    this.props.dispatch({ type: "MAIL_PACKAGE", payload: onboardPackage });
   };
 
   handleDelete = () => {
