@@ -1,17 +1,12 @@
-/* the only line you likely need to change is
-
- database: 'prime_app',
-
- change `prime_app` to the name of your database, and you should be all set!
-*/
-
 const pg = require('pg');
 const url = require('url');
 
 let config = {};
 
-if (process.env.DATABASE_URL) {
-  // Heroku gives a url, not a connection object
+////YO! YOU GOTTA GET RID OF THE ! ON THE NEXT LINE BEFORE YOU DEPLOY OR IT WILL NOT CONNECT TO YOUR FANCY AWS DB
+if (!process.env.DATABASE_URL) {
+  // We configured our long-ass db_url string to match Heroku's configuration 
+  // but make it AWS, there is definitely a better way to do this, but it looks like:
   // https://github.com/brianc/node-pg-pool
   //user:password@host:port/database
   const params = url.parse(process.env.DATABASE_URL);

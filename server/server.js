@@ -1,13 +1,13 @@
 const express = require("express");
 require("dotenv").config();
 
-//https configuration
-const fs = require('fs')
-const https = require('https');
-const options = {
-  key: fs.readFileSync('/etc/letsencrypt/live/onboard.zefenergy.com/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/onboard.zefenergy.com/fullchain.pem')
-};
+//https configuration - required for deployment
+// const fs = require('fs')
+// const https = require('https');
+// const options = {
+//   key: fs.readFileSync('/etc/letsencrypt/live/onboard.zefenergy.com/privkey.pem'),
+//   cert: fs.readFileSync('/etc/letsencrypt/live/onboard.zefenergy.com/fullchain.pem')
+// };
 
 //express app
 const app = express();
@@ -15,9 +15,8 @@ const bodyParser = require("body-parser");
 const sessionMiddleware = require("./modules/session-middleware");
 const passport = require("./strategies/user.strategy");
 
-//express https configuration
-//const httpServer = http.createServer(app);
-const httpsServer = https.createServer(options, app);
+//express https configuration - for deplouyment
+//const httpsServer = https.createServer(options, app);
 
 // Route includes
 const userRouter = require('./routes/user.router');
@@ -52,9 +51,15 @@ app.use('/api/device', deviceRouter);
 app.use(express.static("build"));
 
 // App Set //
-const PORT = process.env.PORT || 443;
+//change this back for deployment
+//const PORT = process.env.PORT || 443;
+const PORT = 5000;
 
 /** Listen * */
-httpsServer.listen(PORT, () => {
-  console.log(`Listening on port: ${PORT}`);
-});
+//change this back for deployment
+// httpsServer.listen(PORT, () => {
+//   console.log(`Listening on port: ${PORT}`);
+// });
+app.listen(PORT, () => {
+    console.log(`Listening on port: ${PORT}`);
+  });
