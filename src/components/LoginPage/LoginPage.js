@@ -53,6 +53,14 @@ class LoginPage extends Component {
     password: "",
   };
 
+  //forgot password function
+  forgot = (event) => {
+    event.preventDefault();
+    //TO DO: replace alert with an MUI component
+    alert('forgot password clicked! Nothing happens yet...')
+  }
+
+  //handles login 
   login = (event) => {
     event.preventDefault();
 
@@ -147,6 +155,11 @@ class LoginPage extends Component {
             justify="center"
             className={classes.LoginPage__buttonContainer}
           >
+            <DynamicButton
+              type="dark2"
+              text="Forgot password?"
+              handleClick = {this.forgot}
+            />
             <DynamicButton
               type="glow"
               text="Sign in"

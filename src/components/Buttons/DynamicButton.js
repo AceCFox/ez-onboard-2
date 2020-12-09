@@ -55,6 +55,18 @@ const styles = {
         }
       },
 
+      'Button--dark2':{
+        color: 'white',
+        backgroundColor: '#1c2447',
+        fontSize: '12px',
+        borderRadius: '5px',
+        position: 'absolute',
+        left: '0px',
+        '&:hover': {
+            backgroundColor: '#243953',
+        }
+      },
+
     'Button--editIconTransparent':{
         padding: '0px 6px',
         background: 'transparent',
@@ -218,6 +230,7 @@ class DynamicButton extends Component{
             classes.Button, 
             {[classes['Button--glow']]: (this.props.type === 'glow')},
             {[classes['Button--dark']]: (this.props.type === 'dark')},
+            {[classes['Button--dark2']]: (this.props.type === 'dark2')},
             {[classes['Button--previousIcon']]: (this.props.type === 'previous')},
             {[classes['Button--primary--basic']]: (this.props.type === 'add')},
             {[classes['Button--primary--basic']]: (this.props.type === 'confirm')},
