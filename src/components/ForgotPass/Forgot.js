@@ -53,6 +53,11 @@ class Forgot extends Component {
     invalidEmail: false,
   };
 
+  //get all of the emails and store them in a reducer when this component loads:
+  componentDidMount() {
+    this.props.dispatch({ type: "FETCH_EMAIL" });  
+  }
+
   //forgot password function
   sendEmail = (event) => {
     event.preventDefault();

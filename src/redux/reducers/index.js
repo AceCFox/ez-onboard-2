@@ -8,6 +8,7 @@ import device from './newDevice';
 import breaker from './breakerReducer';
 import allDevice from './allDeviceReducer';
 import zefUser from './zefUserReducer';
+import email from './emailReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   breaker,
   allDevice, //will have some giant heccin device objects ya
   zefUser,
+  email,//has an array with all of the emails currently stored in the db
 });
 
 export default rootReducer;
