@@ -151,7 +151,6 @@ class LoginPage extends Component {
           <Grid
             item
             align="center"
-            justify="center"
             className={classes.LoginPage__buttonContainer}
           >
             <DynamicButton

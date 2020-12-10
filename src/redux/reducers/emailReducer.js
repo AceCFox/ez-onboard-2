@@ -1,9 +1,9 @@
-const emailReducer = (state = [], action) => {
+const emailReducer = (state = '', action) => {
     switch (action.type) {
       case 'SET_EMAIL':
-        return action.payload;
+        return action.payload[0].exists;
       case 'UNSET_EMAIL':
-        return [];
+        return '';
       default:
         return state;
     }

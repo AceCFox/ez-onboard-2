@@ -49,19 +49,23 @@ const styles = (theme) => ({
 class Forgot extends Component {
   state = {
     email: "",
-    email2: "",
     invalidEmail: false,
+    showError: false,
   };
 
-  //get all of the emails and store them in a reducer when this component loads:
-  componentDidMount() {
-    this.props.dispatch({ type: "FETCH_EMAIL" });  
-  }
+
 
   //forgot password function
   sendEmail = (event) => {
     event.preventDefault();
-    alert('Send Email clicked! nothing happens yet...')
+    if (this.state.email === ''){
+        this.setState({
+            showError: false
+        });
+    } else{
+        this.props.dispatch({ type: "FETCH_EMAIL",  payload: this.state.email}); 
+        
+    }
   }
 
   //input handler for all input fields
@@ -74,7 +78,7 @@ class Forgot extends Component {
   handleKeyDown = (event) => {
     if (event.key === "Enter") {
       //Add recovery fucntion here
-
+        this.sendEmail();
     }
   };
 
@@ -97,10 +101,6 @@ class Forgot extends Component {
     return (
       <Grid container justify="center" alignItems="center">
         <Grid item xs={12} className={classes.LoginPage} align="center">
-          {this.props.errors.loginMessage && (
-            <h2 role="alert">{this.props.errors.loginMessage}</h2>
-          )}
-
           <h2 className={classes.LoginPage__title}>
             Password Recovery
           </h2>
@@ -124,7 +124,6 @@ class Forgot extends Component {
           <Grid
             item
             align="center"
-            justify="center"
             className={classes.LoginPage__buttonContainer}
           >
             <DynamicButton
@@ -156,7 +155,7 @@ class Forgot extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  errors: state.errors,
+  state
 });
 
 Forgot.propTypes = {

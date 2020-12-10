@@ -43,10 +43,11 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
-//get all the emails from the db so we can check for a match for reset password
-router.get('/email', (req, res) => {
-  const queryText = `SELECT email from "user";`
-  pool.query(queryText)
+//check if an email exists within the db
+router.post('/email', (req, res) => {
+  console.log(req.body)
+  const queryText = `SELECT exists (SELECT 1 FROM "user" WHERE email = $1 LIMIT 1);`
+  pool.query(queryText, [req.body.email])
     .then((result) => (
       console.log(result.rows),
       res.send(result.rows) 
