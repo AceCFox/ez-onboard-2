@@ -8,6 +8,7 @@ function* getEmail(action) {
   } catch (error) {
     console.log("problem getting emails", error);
   }
+  
 }
 
 function* passwordSaga() {

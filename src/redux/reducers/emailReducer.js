@@ -8,7 +8,12 @@ const emailReducer = (state = '', action) => {
         return state;
     }
   };
-  
-  // site will be on the redux state at:
+
+
+  // email will be on the redux state at:
   // state.email
   export default emailReducer;
+
+    
+
+  

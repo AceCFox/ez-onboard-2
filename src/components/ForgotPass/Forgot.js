@@ -51,6 +51,7 @@ class Forgot extends Component {
     email: "",
     invalidEmail: false,
     showError: false,
+    messageFromServer: ''
   };
 
 
@@ -64,7 +65,6 @@ class Forgot extends Component {
         });
     } else{
         this.props.dispatch({ type: "FETCH_EMAIL",  payload: this.state.email}); 
-        
     }
   }
 
@@ -101,6 +101,13 @@ class Forgot extends Component {
     return (
       <Grid container justify="center" alignItems="center">
         <Grid item xs={12} className={classes.LoginPage} align="center">
+          {(this.props.state.email === true)  && (
+            <h2 role="alert">Success! an email has been sent with a link to reset your password. 
+             It will expire in 20 minutes. Please follow the directions in the email or click "send link" to send a new link.</h2>
+          )}
+          {(this.props.state.email === false)  && (
+            <h2 role="alert">oops that email does not exist in our database! Please check your spelling and try again, or click "new user" to make a new account.'</h2>
+          )}
           <h2 className={classes.LoginPage__title}>
             Password Recovery
           </h2>

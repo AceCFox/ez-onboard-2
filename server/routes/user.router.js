@@ -45,11 +45,9 @@ router.post('/logout', (req, res) => {
 
 //check if an email exists within the db
 router.post('/email', (req, res) => {
-  console.log(req.body)
   const queryText = `SELECT exists (SELECT 1 FROM "user" WHERE email = $1 LIMIT 1);`
   pool.query(queryText, [req.body.email])
     .then((result) => (
-      console.log(result.rows),
       res.send(result.rows) 
     ))
     .catch((error) => (
