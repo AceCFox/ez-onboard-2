@@ -114,12 +114,17 @@ class AddUser extends Component {
   };
 
   handleAddUser = () => {
+    let editor = 'none';
+      if(this.state.editor === 'edit'){
+        editor = true;
+      } else if  (this.state.editor === 'view'){
+        editor = false;
+      }
     if (
       this.state.first_name &&
       this.state.last_name &&
       this.state.email &&
-      this.state.phone &&
-      this.state.editor !== ""&&
+      editor !== "none"&&
       !this.state.invalidEmail
     ) {
       const actionObject = {
@@ -127,7 +132,7 @@ class AddUser extends Component {
         last_name: this.state.last_name,
         email: this.state.email,
         phone: this.state.phone,
-        editor: this.state.editor,
+        editor: editor,
         organization_id: this.props.reduxState.organization.id,
       };
       this.props.dispatch({ type: "ADD_USER", payload: actionObject });
@@ -311,10 +316,10 @@ class AddUser extends Component {
                     required
                     onChange={this.handleInputChangeFor("editor")}
                     className={classes.MiniTextFields}
-                    value={this.state.editor || ""}
+                    value={this.state.editor || '' }
                   >
-                    <MenuItem value={false}>View</MenuItem>
-                    <MenuItem value={true}>Edit</MenuItem>
+                    <MenuItem value='view'>View</MenuItem>
+                    <MenuItem value='edit'>Edit</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>

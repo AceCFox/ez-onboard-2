@@ -43,4 +43,15 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
+// router.put('/forgot'), (req, res) => {
+//   const email = req.body.email
+//   let allEmail = []
+//   pool.query(`SELECT email from "user";`)
+//   .then((result)=>{allEmail = result.rows
+//   for ()
+//   })
+//   .catch((error))
+
+// }
+
 module.exports = router;
