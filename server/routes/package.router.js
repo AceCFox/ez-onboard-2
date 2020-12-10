@@ -3,6 +3,7 @@ const router = express.Router();
 const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
+const crypto = require ('crypto');
 
 const nodemailer = require('nodemailer');
 const creds = {
@@ -40,6 +41,37 @@ router.post('/send', rejectUnauthenticated, (req, res, next) => {
       subject: 'New ZEF EZ Onboard package',
       text: content
     }
+  
+    transporter.sendMail(mail, (err, data) => {
+      if (err) {
+        res.json({
+          msg: 'fail'
+        })
+      } else {
+        res.json({
+          msg: 'success'
+        })
+      }
+    })
+  })
+
+
+  //password recovery route sends a recovery link to a user's email
+  router.post('/recovery', (req, res) => {
+    const email = req.body.email
+    const token = crypto. randomBytes(20).toString('hex')
+    console.log(token);
+
+  
+    const mail = {
+      from: creds.user,
+      to: email,  
+      subject: 'Link To Reset ZEF Password',
+      text: 'You are receiving this because you (or someone else)have requestied the reset of your password for your ZEF onboarding account. \n \n'
+        + 'please click on the following link, or paste this into your browser to complete the process within one hour of receiving it: \n\n'
+        + `http://localhost:3000/reset/${token}\n\n`
+        + `If you did not request this, please ignore this email and your password will remain unchanged. \n`,
+    };
   
     transporter.sendMail(mail, (err, data) => {
       if (err) {

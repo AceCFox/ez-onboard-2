@@ -1,7 +1,7 @@
 const emailReducer = (state = '', action) => {
     switch (action.type) {
       case 'SET_EMAIL':
-        return action.payload[0].exists;
+        return action.payload;
       case 'UNSET_EMAIL':
         return '';
       default:
