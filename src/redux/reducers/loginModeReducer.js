@@ -4,6 +4,8 @@ const loginMode = (state = 'login', action) => {
         return 'login';
       case 'SET_TO_REGISTER_MODE':
         return 'register';
+      case 'SET_TO_FORGOT_MODE':
+        return 'forgot';
       default:
         return state;
     }

@@ -56,8 +56,7 @@ class LoginPage extends Component {
   //forgot password function
   forgot = (event) => {
     event.preventDefault();
-    //TO DO: replace alert with an MUI component
-    alert('forgot password clicked! Nothing happens yet...')
+    this.props.dispatch({ type: "SET_TO_FORGOT_MODE" })
   }
 
   //handles login 
