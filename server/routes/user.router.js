@@ -43,15 +43,20 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
-// router.put('/forgot'), (req, res) => {
-//   const email = req.body.email
-//   let allEmail = []
-//   pool.query(`SELECT email from "user";`)
-//   .then((result)=>{allEmail = result.rows
-//   for ()
-//   })
-//   .catch((error))
+//get all the emails from the db so we can check for a match for reset password
+router.get('/email', (req, res) => {
+  const queryText = `SELECT email from "user";`
+  pool.query(queryText)
+    .then((result) => (
+      console.log(result.rows),
+      res.send(result.rows) 
+    ))
+    .catch((error) => (
+      res.sendStatus(500),
+      console.log(error)
+    ))
+})
 
-// }
+
 
 module.exports = router;

@@ -68,10 +68,6 @@ class App extends Component {
                   path="/organizationHome"
                   component={OrganizationHomeScreen}
                 />
-                {/* <Route
-                  exact path = "/forgot"
-                  component ={Forgot}
-                />                 */}
                 <ProtectedRoute
                   exact
                   path="/createOrganization"
