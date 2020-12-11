@@ -15,7 +15,9 @@ CREATE TABLE "user" (
     "organization_id" INT references "organization",
     "first_name" VARCHAR (50),
     "last_name" VARCHAR(100),
-    "phone" VARCHAR(30)
+    "phone" VARCHAR(30),
+	"token" VARCHAR (200),
+	"timeout" BIGINT
 );
 
 CREATE TABLE "zefnet_user" (

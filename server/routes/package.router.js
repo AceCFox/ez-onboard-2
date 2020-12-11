@@ -6,6 +6,7 @@ const {
 const crypto = require ('crypto');
 
 const nodemailer = require('nodemailer');
+const pool = require("../modules/pool");
 const creds = {
     USER: process.env.USER_EMAIL,
     PASS: process.env.PASS,
@@ -59,10 +60,23 @@ router.post('/send', rejectUnauthenticated, (req, res, next) => {
   //password recovery route sends a recovery link to a user's email
   router.post('/recovery', (req, res) => {
     const email = req.body.email
-    const token = crypto. randomBytes(20).toString('hex')
-    console.log(token);
+    //create a random 20 byte string as a token
+    const token = crypto.randomBytes(20).toString('hex')
+    //set an expiration date for one hour from now:
+    const expires = Date.now() + 360000;
+    console.log('user: ', email, 'token: ', token, 'expires:', expires);
+    // update the user table so that the token and expiration integer are associated with the user
+    const queryText = `UPDATE "user" SET "token" = $1, "timeout" = $2 WHERE email = $3;`;
+    pool.query(queryText, [token, expires, email])
+    .then(() => (
+      res.sendStatus(200) 
+    ))
+    .catch((error) => (
+      res.sendStatus(500),
+      console.log(error)
+    ))//end query
 
-  
+    //send that token as a link to the user
     const mail = {
       from: creds.user,
       to: email,  
