@@ -50,10 +50,14 @@ const styles = (theme) => ({
 class Reset extends Component {
   state = {
     email: "",
-    invalidEmail: false,
     password: "",
-    confirmPasswordk: "",
+    confirmPassword: "",
     updated: false,
+    passwordErr: "",
+    confirmPasswordErr: "",
+    tooShortModal: false,
+    mismatchModal: false,
+    disableInput: false,
   };
 
   componentDidMount() {
@@ -63,11 +67,30 @@ class Reset extends Component {
 
   reset = (event) => {
     event.preventDefault();
+    const password = this.state.password;
     const token = this.props.match.params.id;
     console.log(`reset token: `, token);
-    // this.setState({
-    //   updated: true,
-    // })
+    if (password.length < 6 ) {
+      //To do: replace alert with MUI modal
+      alert('oops, password is too short, must be at least 6 chacters long...');
+      this.setState({
+        passwordErr: true
+      })
+    } else if (password !== this.state.confirmPassword){
+      //replace this with another modal
+      alert ('oops! Passwords do not match...')
+      this.setState({
+        confirmPasswordErr: true,
+      })
+    } else {
+      //this is where the route fires
+      this.setState({
+        updated: true,
+        passwordErr: false,
+        confirmPasswordErr: false,
+        disableInput: true,
+      })
+    }
   }
 
   loginButton = (event) => {
@@ -107,6 +130,8 @@ class Reset extends Component {
             type="password"
             label="Password"
             name="password"
+            disabled = {this.state.disableInput}
+            error = {this.state.passwordErr}
             value={this.state.password}
             onChange={this.handleInputChangeFor("password")}
             InputProps={{ classes: { root: classes.TextField } }}
@@ -122,6 +147,8 @@ class Reset extends Component {
             type="password"
             label="Confirm Password"
             name="confirmPassword"
+            error = {this.state.confirmPasswordErr}
+            disabled = {this.state.disableInput}
             value={this.state.confirmPassword}
             onChange={this.handleInputChangeFor("confirmPassword")}
             InputProps={{ classes: { root: classes.TextField } }}
@@ -136,7 +163,7 @@ class Reset extends Component {
             className={classes.LoginPage__buttonContainer}
           >
             <p className={classes.LoginPage__subTitle}>
-              Your password has been successfully reset. Please try logging in again!
+              Your password has been successfully reset! Please try logging in again:
             </p>
             <DynamicButton
               type="glow"
