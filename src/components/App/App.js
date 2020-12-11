@@ -18,6 +18,7 @@ import DeviceSerial from "../Device/DeviceSerial";
 import DeviceName from "../Device/DeviceName";
 import DevicePrep from "../Device/DevicePrep";
 import BreakerSelect from "../Device/Breaker/Select";
+import Reset from "../ForgotPass/Reset";
 import {
   CssBaseline,
   MuiThemeProvider,
@@ -61,6 +62,7 @@ class App extends Component {
               <Switch>
                 {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
                 <Redirect exact from="/" to="/home" />
+                <Route path = "/reset" component={Reset}/>
                 <ProtectedRoute exact path="/home" component={WelcomeScreen} />
 
                 <ProtectedRoute

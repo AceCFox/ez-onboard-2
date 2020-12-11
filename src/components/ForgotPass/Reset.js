@@ -46,37 +46,32 @@ const styles = (theme) => ({
   },
 });
 
-class LoginPage extends Component {
+class Reset extends Component {
   state = {
     email: "",
     invalidEmail: false,
     password: "",
+    confirmPasswordk: "",
+    updated: false,
   };
 
-  //forgot password function
-  forgot = (event) => {
-    event.preventDefault();
-    //TO DO: replace alert with an MUI component
-    alert('forgot password clicked! Nothing happens yet...')
+  componentDidMount() {
+    this.props.dispatch({ type: "SET_TO_RESET_MODE" })
   }
 
-  //handles login 
-  login = (event) => {
+  reset = (event) => {
     event.preventDefault();
+    alert('reset button clicked. Actual logic to follow:');
+    this.setState({
+      updated: true,
+    })
+  }
 
-    if (this.state.email && this.state.password &&!this.state.invalidEmail) {
-      this.props.dispatch({
-        type: "LOGIN",
-        payload: {
-          email: this.state.email.toLowerCase(),
-          password: this.state.password,
-        },
-      });
-      this.props.history.push("/home");
-    } else {
-      this.props.dispatch({ type: "LOGIN_INPUT_ERROR" });
-    }
-  }; // end login
+  loginButton = (event) => {
+    event.preventDefault();
+    this.props.dispatch({ type: "SET_TO_LOGIN_MODE" });
+    this.props.history.push('/home')
+  }
 
   //input handler for all input fields
   handleInputChangeFor = (propertyName) => (event) => {
@@ -87,21 +82,7 @@ class LoginPage extends Component {
 
   handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      this.login(event);
-    }
-  };
-
-//validates email input
-  checkEmail = (e) => {
-    const value = e.target.value;
-    if (value.includes("@") && value.includes(".")) {
-      this.setState({
-        invalidEmail: false,
-      });
-    } else {
-      this.setState({
-        invalidEmail: true,
-      });
+      this.reset(event)
     }
   };
 
@@ -110,31 +91,12 @@ class LoginPage extends Component {
     return (
       <Grid container justify="center" alignItems="center">
         <Grid item xs={12} className={classes.LoginPage} align="center">
-          {this.props.errors.loginMessage && (
-            <h2 role="alert">{this.props.errors.loginMessage}</h2>
-          )}
-
           <h2 className={classes.LoginPage__title}>
-            Welcome to ZEFNET EZ Onboarding!{" "}
+            ZEF onboarding Password Reset{" "}
           </h2>
           <p className={classes.LoginPage__subTitle}>
-            The first stop for a new ZEF Energy customer
+            Please enter a new password to be associated with your account:
           </p>
-          <TextField
-            className={classes.BottomBuffer}
-            required
-            variant="filled"
-            error={this.state.invalidEmail}
-            onBlur={this.checkEmail}
-            label="Email Address"
-            name="email"
-            value={this.state.email}
-            onChange={this.handleInputChangeFor("email")}
-            InputProps={{ classes: { root: classes.TextField } }}
-            inputProps={{ maxLength: 100, className: classes.TextField }}
-            InputLabelProps={{ style: { color: "white" } }}
-          />
-          <br />
           <TextField
             className={classes.BottomBuffer}
             required
@@ -149,30 +111,49 @@ class LoginPage extends Component {
             InputLabelProps={{ style: { color: "white" } }}
             onKeyDown={this.handleKeyDown}
           />
+          <br/>
+          <TextField
+            className={classes.BottomBuffer}
+            required
+            variant="filled"
+            type="password"
+            label="Confirm Password"
+            name="confirmPassword"
+            value={this.state.confirmPassword}
+            onChange={this.handleInputChangeFor("confirmPassword")}
+            InputProps={{ classes: { root: classes.TextField } }}
+            inputProps={{ maxLength: 1000, className: classes.TextField }}
+            InputLabelProps={{ style: { color: "white" } }}
+            onKeyDown={this.handleKeyDown}
+          />
+          { this.state.updated?
           <Grid
             item
             align="center"
-            justify="center"
             className={classes.LoginPage__buttonContainer}
           >
-            <DynamicButton
-              type="dark2"
-              text="Forgot password?"
-              handleClick = {this.forgot}
-            />
+            <p className={classes.LoginPage__subTitle}>
+              Your password has been successfully reset. Please try logging in again!
+            </p>
             <DynamicButton
               type="glow"
               text="Sign in"
-              handleClick={this.login}
-            />
-            <DynamicButton
-              type="dark"
-              text="New User?"
-              handleClick={() =>
-                this.props.dispatch({ type: "SET_TO_REGISTER_MODE" })
-              }
+              handleClick={this.loginButton}
             />
           </Grid>
+          :
+          <Grid
+            item
+            align="center"
+            className={classes.LoginPage__buttonContainer}
+          >
+            <DynamicButton
+              type="glow"
+              text="Update password"
+              handleClick={this.reset}
+            />
+          </Grid>
+          }
         </Grid>
       </Grid>
     );
@@ -180,11 +161,11 @@ class LoginPage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  errors: state.errors,
+  state,
 });
 
-LoginPage.propTypes = {
+Reset.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(connect(mapStateToProps)(LoginPage));
+export default withStyles(styles)(connect(mapStateToProps)(Reset));

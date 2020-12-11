@@ -6,6 +6,8 @@ const loginMode = (state = 'login', action) => {
         return 'register';
       case 'SET_TO_FORGOT_MODE':
         return 'forgot';
+      case 'SET_TO_RESET_MODE':
+        return 'reset';
       default:
         return state;
     }
