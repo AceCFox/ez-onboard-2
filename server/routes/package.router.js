@@ -83,7 +83,7 @@ router.post('/send', rejectUnauthenticated, (req, res, next) => {
       subject: 'Link To Reset ZEF Password',
       text: 'You are receiving this because you (or someone else)have requestied the reset of your password for your ZEF onboarding account. \n \n'
         + 'please click on the following link, or paste this into your browser to complete the process within one hour of receiving it: \n\n'
-        + `http://localhost:3000/reset/${token}\n\n`
+        + `http://localhost:3000/#/reset/${token}\n\n`
         + `If you did not request this, please ignore this email and your password will remain unchanged. \n`,
     };
   

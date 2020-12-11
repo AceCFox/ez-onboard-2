@@ -63,10 +63,8 @@ class Reset extends Component {
 
   reset = (event) => {
     event.preventDefault();
-    const id = this.props.match.params;
-
-
-    alert('params: ', id);
+    const token = this.props.match.params.id;
+    console.log(`reset token: `, token);
     // this.setState({
     //   updated: true,
     // })
@@ -97,7 +95,6 @@ class Reset extends Component {
       <Grid container justify="center" alignItems="center">
         <Grid item xs={12} className={classes.LoginPage} align="center">
           <h2 className={classes.LoginPage__title}>
-            {JSON.stringify(this.props.match.params.id)}
             ZEF onboarding Password Reset{" "}
           </h2>
           <p className={classes.LoginPage__subTitle}>
