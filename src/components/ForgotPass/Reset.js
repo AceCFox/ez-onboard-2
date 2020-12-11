@@ -4,6 +4,7 @@ import { Grid, TextField } from "@material-ui/core";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import DynamicButton from "../Buttons/DynamicButton";
+import { withRouter } from "react-router-dom";
 
 const styles = (theme) => ({
   BottomBuffer: {
@@ -59,12 +60,16 @@ class Reset extends Component {
     this.props.dispatch({ type: "SET_TO_RESET_MODE" })
   }
 
+
   reset = (event) => {
     event.preventDefault();
-    alert('reset button clicked. Actual logic to follow:');
-    this.setState({
-      updated: true,
-    })
+    const id = this.props.match.params;
+
+
+    alert('params: ', id);
+    // this.setState({
+    //   updated: true,
+    // })
   }
 
   loginButton = (event) => {
@@ -92,6 +97,7 @@ class Reset extends Component {
       <Grid container justify="center" alignItems="center">
         <Grid item xs={12} className={classes.LoginPage} align="center">
           <h2 className={classes.LoginPage__title}>
+            {JSON.stringify(this.props.match.params.id)}
             ZEF onboarding Password Reset{" "}
           </h2>
           <p className={classes.LoginPage__subTitle}>
@@ -168,4 +174,4 @@ Reset.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(connect(mapStateToProps)(Reset));
+export default withRouter(withStyles(styles)(connect(mapStateToProps)(Reset)));

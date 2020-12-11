@@ -62,7 +62,7 @@ class App extends Component {
               <Switch>
                 {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
                 <Redirect exact from="/" to="/home" />
-                <Route path = "/reset" component={Reset}/>
+                <Route path = "/reset/:id" component={Reset}/>
                 <ProtectedRoute exact path="/home" component={WelcomeScreen} />
 
                 <ProtectedRoute
