@@ -132,22 +132,22 @@ class Reset extends Component {
     return (
       <>
       {/* If timeone reached, error message below will render */}
-     { this.props.state.timeout?
+      { this.props.state.timeout?
+      
         <Grid container justify="center" alignItems="center">
           <Grid item xs={12} className={classes.LoginPage} align="center">
             <h2 className={classes.LoginPage__title}>
-              Oops, your reset link has expired{" "}
+              Oops, your reset link has expired!{" "}
             </h2>
             <p className={classes.LoginPage__subTitle}>
               Please click the button below and reenter your email address to request a new link:
             </p>
               <DynamicButton
                 type="glow"
-                text="Forgot Password"
+                text="Get New Link"
                 handleClick={this.forgotButton}
               />
             </Grid>
-
           </Grid>
         
         :

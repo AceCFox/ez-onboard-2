@@ -62,12 +62,34 @@ router.get('/timeout/:id', (req, res) => {
   const queryText = `SELECT timeout FROM "user" where token = $1;`
   pool.query(queryText, [req.params.id])
     .then((result) => (
-      res.send(result.rows[0].timeout)
+      res.send(result.rows[0])
     ))
     .catch((error) => (
       res.sendStatus(500),
       console.log(error)
     ))
+})
+
+//Reset password! 
+router.put('/password', (req, res) => {
+  const password = encryptLib.encryptPassword(req.body.password);
+  const token = req.body.token;
+  const updateQuery = 
+  `UPDATE "user"
+  SET 
+    "token" = Null, 
+    "password" = $1
+  WHERE 
+    "token" = $2;`;
+
+  pool.query(updateQuery, [password, token])
+  .then(() => (
+    res.sendStatus(200)
+  ))
+  .catch((error) => (
+    res.sendStatus(500),
+    console.log(error)
+  ))
 })
 
 

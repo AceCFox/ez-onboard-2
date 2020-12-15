@@ -31,12 +31,12 @@ function* checkTimeout(action){
         const response = yield axios.get("/api/user/timeout/" + action.payload );
         //check if expiration time has passed
         console.log('back from server with', response.data, `date now is:`, Date.now() )
-        if (response.data > Date.now()){
+        if ((response.data.timeout)&& (response.data.timeout > Date.now())){
             console.log('NOT EXPIRED WOO!')
             yield put ({ type: 'TOKEN_UNEXPIRED'})
         } else{
             console.log ("LINK EXPIRED!!!")
-            //set up a reducer with some indication of this to render a link and a message on the DOM
+            //reducer with boolean indication of this to render a link and a message on the DOM
             yield put ({ type: 'TOKEN_EXPIRED'})
         }
     } catch (error){
