@@ -33,9 +33,11 @@ function* checkTimeout(action){
         console.log('back from server with', response.data, `date now is:`, Date.now() )
         if (response.data > Date.now()){
             console.log('NOT EXPIRED WOO!')
+            yield put ({ type: 'TOKEN_UNEXPIRED'})
         } else{
             console.log ("LINK EXPIRED!!!")
             //set up a reducer with some indication of this to render a link and a message on the DOM
+            yield put ({ type: 'TOKEN_EXPIRED'})
         }
     } catch (error){
         console.log('problem getting timeout: ', error)

@@ -121,80 +121,109 @@ class Reset extends Component {
     }
   };
 
+  forgotButton = (event) => {
+    event.preventDefault();
+    this.props.dispatch({ type: "SET_TO_FORGOT_MODE" });
+    this.props.history.push('/home')
+  }
+
   render() {
     const { classes } = this.props;
     return (
-      <Grid container justify="center" alignItems="center">
-        <Grid item xs={12} className={classes.LoginPage} align="center">
-          <h2 className={classes.LoginPage__title}>
-            ZEF onboarding Password Reset{" "}
-          </h2>
-          <p className={classes.LoginPage__subTitle}>
-            Please enter a new password to be associated with your account:
-          </p>
-          <TextField
-            className={classes.BottomBuffer}
-            required
-            variant="filled"
-            type="password"
-            label="Password"
-            name="password"
-            disabled = {this.state.disableInput}
-            error = {this.state.passwordErr}
-            value={this.state.password}
-            onChange={this.handleInputChangeFor("password")}
-            InputProps={{ classes: { root: classes.TextField } }}
-            inputProps={{ maxLength: 1000, className: classes.TextField }}
-            InputLabelProps={{ style: { color: "white" } }}
-            onKeyDown={this.handleKeyDown}
-          />
-          <br/>
-          <TextField
-            className={classes.BottomBuffer}
-            required
-            variant="filled"
-            type="password"
-            label="Confirm Password"
-            name="confirmPassword"
-            error = {this.state.confirmPasswordErr}
-            disabled = {this.state.disableInput}
-            value={this.state.confirmPassword}
-            onChange={this.handleInputChangeFor("confirmPassword")}
-            InputProps={{ classes: { root: classes.TextField } }}
-            inputProps={{ maxLength: 1000, className: classes.TextField }}
-            InputLabelProps={{ style: { color: "white" } }}
-            onKeyDown={this.handleKeyDown}
-          />
-          { this.state.updated?
-          <Grid
-            item
-            align="center"
-            className={classes.LoginPage__buttonContainer}
-          >
+      <>
+      {/* If timeone reached, error message below will render */}
+     { this.props.state.timeout?
+        <Grid container justify="center" alignItems="center">
+          <Grid item xs={12} className={classes.LoginPage} align="center">
+            <h2 className={classes.LoginPage__title}>
+              Oops, your reset link has expired{" "}
+            </h2>
             <p className={classes.LoginPage__subTitle}>
-              Your password has been successfully reset! Please try logging in again:
+              Please click the button below and reenter your email address to request a new link:
             </p>
-            <DynamicButton
-              type="glow"
-              text="Sign in"
-              handleClick={this.loginButton}
-            />
+              <DynamicButton
+                type="glow"
+                text="Forgot Password"
+                handleClick={this.forgotButton}
+              />
+            </Grid>
+
           </Grid>
-          :
-          <Grid
-            item
-            align="center"
-            className={classes.LoginPage__buttonContainer}
-          >
-            <DynamicButton
-              type="glow"
-              text="Update password"
-              handleClick={this.reset}
+        
+        :
+        <Grid container justify="center" alignItems="center">
+          <Grid item xs={12} className={classes.LoginPage} align="center">
+            <h2 className={classes.LoginPage__title}>
+              ZEF onboarding Password Reset{" "}
+            </h2>
+            <p className={classes.LoginPage__subTitle}>
+              Please enter a new password to be associated with your account:
+            </p>
+            <TextField
+              className={classes.BottomBuffer}
+              required
+              variant="filled"
+              type="password"
+              label="Password"
+              name="password"
+              disabled = {this.state.disableInput}
+              error = {this.state.passwordErr}
+              value={this.state.password}
+              onChange={this.handleInputChangeFor("password")}
+              InputProps={{ classes: { root: classes.TextField } }}
+              inputProps={{ maxLength: 1000, className: classes.TextField }}
+              InputLabelProps={{ style: { color: "white" } }}
+              onKeyDown={this.handleKeyDown}
             />
+            <br/>
+            <TextField
+              className={classes.BottomBuffer}
+              required
+              variant="filled"
+              type="password"
+              label="Confirm Password"
+              name="confirmPassword"
+              error = {this.state.confirmPasswordErr}
+              disabled = {this.state.disableInput}
+              value={this.state.confirmPassword}
+              onChange={this.handleInputChangeFor("confirmPassword")}
+              InputProps={{ classes: { root: classes.TextField } }}
+              inputProps={{ maxLength: 1000, className: classes.TextField }}
+              InputLabelProps={{ style: { color: "white" } }}
+              onKeyDown={this.handleKeyDown}
+            />
+            { this.state.updated?
+            <Grid
+              item
+              align="center"
+              className={classes.LoginPage__buttonContainer}
+            >
+              <p className={classes.LoginPage__subTitle}>
+                Your password has been successfully reset! Please try logging in again:
+              </p>
+              <DynamicButton
+                type="glow"
+                text="Sign in"
+                handleClick={this.loginButton}
+              />
+            </Grid>
+            :
+            <Grid
+              item
+              align="center"
+              className={classes.LoginPage__buttonContainer}
+            >
+              <DynamicButton
+                type="glow"
+                text="Update password"
+                handleClick={this.reset}
+              />
+            </Grid>
+            }
           </Grid>
-          }
         </Grid>
-      </Grid>
+      }
+      </>
     );
   }
 }
