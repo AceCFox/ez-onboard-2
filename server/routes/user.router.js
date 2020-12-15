@@ -92,6 +92,19 @@ router.put('/password', (req, res) => {
   ))
 })
 
+//reset token if login
+router.put('/reset', rejectUnauthenticated, (req, res) =>{
+  const queryText = `UPDATE "user" SET token = null where id = $1`
+  pool.query(queryText, [req.user.id])
+  .then(() => (
+    res.sendStatus(200)
+  ))
+  .catch((error) => (
+    res.sendStatus(500),
+    console.log(error)
+  ))
+})
+
 
 
 

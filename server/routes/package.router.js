@@ -64,7 +64,6 @@ router.post('/send', rejectUnauthenticated, (req, res, next) => {
     const token = crypto.randomBytes(20).toString('hex')
     //set an expiration date for one hour from now:
     const expires = Date.now() + 360000;
-    console.log('user: ', email, 'token: ', token, 'expires:', expires);
     // update the user table so that the token and expiration integer are associated with the user
     const queryText = `UPDATE "user" SET "token" = $1, "timeout" = $2 WHERE email = $3;`;
     pool.query(queryText, [token, expires, email])
