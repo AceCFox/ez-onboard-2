@@ -53,8 +53,8 @@ class Reset extends Component {
     password: "",
     confirmPassword: "",
     updated: false,
-    passwordErr: "",
-    confirmPasswordErr: "",
+    passwordErr: false,
+    confirmPasswordErr: false,
     tooShortModal: false,
     mismatchModal: false,
     disableInput: false,
@@ -62,6 +62,10 @@ class Reset extends Component {
 
   componentDidMount() {
     this.props.dispatch({ type: "SET_TO_RESET_MODE" })
+    //check if timeout has occured
+    const id = this.props.match.params.id 
+    console.log('token = ', id);
+    this.props.dispatch({type: "CHECK_TIMEOUT", payload: id })
   }
 
 
@@ -69,6 +73,10 @@ class Reset extends Component {
     event.preventDefault();
     const password = this.state.password;
     const token = this.props.match.params.id;
+    const dispatchPayload = {
+      password: password,
+      token: token,
+    }
     console.log(`reset token: `, token);
     if (password.length < 6 ) {
       //To do: replace alert with MUI modal
@@ -83,6 +91,7 @@ class Reset extends Component {
         confirmPasswordErr: true,
       })
     } else {
+      this.props.dispatch({ type: "UPDATE_PASSWORD",  payload: dispatchPayload});
       //this is where the route fires
       this.setState({
         updated: true,

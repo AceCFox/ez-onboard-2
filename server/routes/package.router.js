@@ -77,6 +77,7 @@ router.post('/send', rejectUnauthenticated, (req, res, next) => {
     ))//end query
 
     //send that token as a link to the user
+    // IMPORTANT: upon deployment, replace `localhost:300` with the deployed app base!!!
     const mail = {
       from: creds.user,
       to: email,  

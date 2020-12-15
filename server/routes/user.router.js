@@ -1,3 +1,4 @@
+const { Update } = require('@material-ui/icons');
 const express = require('express');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const encryptLib = require('../modules/encryption');
@@ -55,6 +56,20 @@ router.post('/email', (req, res) => {
       console.log(error)
     ))
 })
+
+//Check if a token has not timed out yet
+router.get('/timeout/:id', (req, res) => {
+  const queryText = `SELECT timeout FROM "user" where token = $1;`
+  pool.query(queryText, [req.params.id])
+    .then((result) => (
+      res.send(result.rows[0].timeout)
+    ))
+    .catch((error) => (
+      res.sendStatus(500),
+      console.log(error)
+    ))
+})
+
 
 
 
