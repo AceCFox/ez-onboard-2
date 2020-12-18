@@ -49,10 +49,12 @@ class DeviceReview extends Component {
       }
 
     state =  {
-        open: false
+        missingField: false,
+        repeatedSerial: false,
     }
 
     saveDevice = () => {
+        const serialArray = this.props.state.allSerial
         const postObject = {
             name: this.props.state.device.name,
             installation_date: this.props.state.device.date,
@@ -67,20 +69,28 @@ class DeviceReview extends Component {
         if(postObject.name && postObject.installation_date
             && postObject.serial_number && postObject.type_id 
             && postObject.breaker_id)
-        {   
-            //post the new device, or update if navigated here from submit page
-            if ( postObject.id ) {
-                this.props.dispatch({ type: "UPDATE_DEVICE", payload: postObject });
-            } else{
-                this.props.dispatch({ type: "ADD_DEVICE", payload: postObject });        
-            }
-            this.props.dispatch({ type: "CLEAR_DEVICE" });
-            this.props.history.push("/OrganizationHome");
-        } else { this.setState({open: true}) }
+        {    //post the new device, or update if navigated here from submit page
+                if ( postObject.id ) {
+                    this.props.dispatch({ type: "UPDATE_DEVICE", payload: postObject });
+                } else{
+                    //throw an error if the serial number already exists in the DB
+                    if ( (serialArray.includes(postObject.serial_number)) ||
+                         (serialArray.includes(postObject.serial_number2)) ) {
+                        this.setState({repeatedSerial: true})
+                        return;
+                    } else {
+                        this.props.dispatch({ type: "ADD_DEVICE", payload: postObject });        
+                    }
+                }
+                this.props.dispatch({ type: "CLEAR_DEVICE" });
+                this.props.history.push("/OrganizationHome");
+        } else { this.setState({missingField: true}) }
     }
 
-    handleClose = () => {
-        this.setState({open: false});
+    handleCloseModal = (propertyName) => (event) => {
+        this.setState({
+          [propertyName]: false,
+        });
       };
 
     render() {
@@ -89,8 +99,8 @@ class DeviceReview extends Component {
           <Grid container direction='row' justify='center' alignContent='center' alignItems='center' >
               {/* Dialog runs if adding/saving device without all required info */}
                 <Dialog
-                open={this.state.open}
-                onClose={this.handleClose}
+                open={this.state.missingField}
+                onClose={this.handleCloseModal("missingField")}
                 aria-labelledby="missing-information"
                 aria-describedby="missing-information-required-for-device"
                 >
@@ -102,7 +112,26 @@ class DeviceReview extends Component {
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                    <Button onClick={this.handleClose} color="primary">
+                    <Button onClick={this.handleCloseModal("missingField")} color="primary">
+                        OK
+                    </Button>
+                    </DialogActions>
+                </Dialog>
+                 {/* Dialog runs if adding device with non-unique serial number */}
+                 <Dialog
+                open={this.state.repeatedSerial}
+                onClose={this.handleCloseModal("repeatedSerial")}
+                aria-labelledby="missing-information"
+                aria-describedby="missing-information-required-for-device"
+                >
+                    <DialogContent>
+                        <DialogContentText id="missing-required-information-use-edit-buttons-to-add">
+                        oops! This serial number is already associated with a device in our system. 
+                        You may only use this tool to onboard a new device with a unique serial number.
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                    <Button onClick={this.handleCloseModal("repeatedSerial")} color="primary">
                         OK
                     </Button>
                     </DialogActions>
