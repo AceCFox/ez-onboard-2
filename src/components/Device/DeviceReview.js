@@ -44,6 +44,10 @@ const styles = theme => ({
 })
 
 class DeviceReview extends Component {
+    componentDidMount() {
+        this.props.dispatch({ type: "GET_SERIAL_NUMBERS" });
+      }
+
     state =  {
         open: false
     }

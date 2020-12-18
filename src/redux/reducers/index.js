@@ -10,6 +10,7 @@ import allDevice from './allDeviceReducer';
 import zefUser from './zefUserReducer';
 import email from './emailReducer';
 import timeout from './tokenReducer';
+import allSerial from './allSerialReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   zefUser,
   email,//has an array with all of the emails currently stored in the db
   timeout, //boolean that says if timeout has been reached
+  allSerial, //array of strings of all serials stored in DB
 });
 
 export default rootReducer;

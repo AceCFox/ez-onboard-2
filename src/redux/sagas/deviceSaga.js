@@ -12,7 +12,7 @@ function* addDevice(action) {
 
 function* getDevice(action) {
     try {
-      const response = yield axios.get("/api/device/" + action.payload);
+      const response = yield axios.get("/api/device/all/" + action.payload);
       yield put({ type: 'SET_ALL_DEVICE', payload: response.data });
     } catch (error) {
       console.log("Trouble getting devices", error);
@@ -37,8 +37,22 @@ function* putDevice(action) {
     }
   }
 
+  function* getSerial() {
+    try {
+      const response = yield axios.get("/api/device/serial");
+      //build an array of strings, not objects
+      let serialArray = []
+      for (let object of response.data){
+        serialArray.push(object.serial_number)
+      }
+      yield put({ type: 'SET_ALL_SERIAL', payload: serialArray });
+    } catch (error) {
+      console.log("Trouble getting device serial numbers", error);
+    }
+  }
 
 function* deviceSaga() {
+  yield takeLatest("GET_SERIAL_NUMBERS", getSerial);
   yield takeLatest("ADD_DEVICE", addDevice);
   yield takeLatest("GET_ALL_DEVICE", getDevice);
   yield takeLatest("UPDATE_DEVICE", putDevice);

@@ -118,6 +118,7 @@ class Submit extends Component {
     deletedID: "",
   };
 
+
   handleChange = (name) => (event) => {
     this.setState({ [name]: event.target.checked });
   };

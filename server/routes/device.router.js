@@ -6,7 +6,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 /**
  * GET all devices, based on organization id.
  */
-router.get("/:id", rejectUnauthenticated, (req, res) => {
+router.get("/all/:id", rejectUnauthenticated, (req, res) => {
     const queryString = `
     SELECT "device"."name",  
 	"device"."install_date",
@@ -118,10 +118,24 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
   pool.query(queryString, queryValue)
   .then(()=>{res.sendStatus(200)})
   .catch((error)=>{
-   console.log( 'error on POST /api/device/', error);
+   console.log( 'error on DELETE /api/device/', error);
    res.sendStatus(500)
  })
 });
 
+/**
+ * GET all serial numbers of devices stored in DB
+ */
+router.get('/serial', rejectUnauthenticated, (req, res) => {
+  const queryString = `SELECT "serial_number" from "device";`;
+  pool.query(queryString)
+  .then((result) => {
+    res.send(result.rows);
+  })
+  .catch((error)=>{
+   console.log( 'error in GET /api/device/serial', error);
+   res.sendStatus(500)
+ })
+});
 
 module.exports = router;
