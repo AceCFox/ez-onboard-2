@@ -3,6 +3,11 @@ import { connect } from "react-redux";
 import { Grid, TextField } from "@material-ui/core";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
 import DynamicButton from "../Buttons/DynamicButton";
 import { withRouter } from "react-router-dom";
 
@@ -55,8 +60,8 @@ class Reset extends Component {
     updated: false,
     passwordErr: false,
     confirmPasswordErr: false,
-    tooShortModal: false,
-    mismatchModal: false,
+    tooShortDialog: false,
+    mismatchDialog: false,
     disableInput: false,
   };
 
@@ -79,16 +84,14 @@ class Reset extends Component {
     }
     console.log(`reset token: `, token);
     if (password.length < 6 ) {
-      //To do: replace alert with MUI modal
-      alert('oops, password is too short, must be at least 6 chacters long...');
       this.setState({
-        passwordErr: true
+        passwordErr: true,
+        tooShortDialog: true,
       })
     } else if (password !== this.state.confirmPassword){
-      //replace this with another modal
-      alert ('oops! Passwords do not match...')
       this.setState({
         confirmPasswordErr: true,
+        mismatchDialog: true,
       })
     } else {
       this.props.dispatch({ type: "UPDATE_PASSWORD",  payload: dispatchPayload});
@@ -127,6 +130,12 @@ class Reset extends Component {
     this.props.history.push('/home')
   }
 
+  handleCloseModal = (propertyName) => (event) => {
+    this.setState({
+      [propertyName]: false,
+    });
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -151,7 +160,41 @@ class Reset extends Component {
           </Grid>
         
         :
-        <Grid container justify="center" alignItems="center">
+        <Grid container justify="center" alignItems="center">]
+        {/* Modal alerts user of mismatched passwords */}
+          <Dialog
+          open={this.state.mismatchDialog}
+          onClose={this.handleCloseModal("mismatchDialog")}
+          aria-describedby="alert-dialog-description"
+          >
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Oops, your passwords don't match!
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleCloseModal("mismatchDialog")} color="primary" autoFocus>
+                OK
+              </Button>
+            </DialogActions>
+          </Dialog>
+          {/* Modal alerts user of insecure password (too short) */}
+          <Dialog
+          open={this.state.tooShortDialog}
+          onClose={this.handleCloseModal("tooShortDialog")}
+          aria-describedby="alert-dialog-description"
+          >
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Oops, your password is too short!
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleCloseModal("tooShortDialog")} color="primary" autoFocus>
+                OK
+              </Button>
+            </DialogActions>
+          </Dialog>
           <Grid item xs={12} className={classes.LoginPage} align="center">
             <h2 className={classes.LoginPage__title}>
               ZEF onboarding Password Reset{" "}
