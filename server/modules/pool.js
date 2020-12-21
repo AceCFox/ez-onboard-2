@@ -3,8 +3,8 @@ const url = require('url');
 
 let config = {};
 
-////YO! YOU GOTTA GET RID OF THE ! ON THE NEXT LINE BEFORE YOU DEPLOY OR IT WILL NOT CONNECT TO YOUR FANCY AWS DB
-if (!process.env.DATABASE_URL) {
+////YO! FOR LOCAL DEVELOPMENT WITH A LOCALLY HOSTED DB, put a ! before process on the next line
+if (process.env.DATABASE_URL) {
   // We configured our long-ass db_url string to match Heroku's configuration 
   // but make it AWS, there is definitely a better way to do this, but it looks like:
   // https://github.com/brianc/node-pg-pool

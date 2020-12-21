@@ -16,7 +16,7 @@ const sessionMiddleware = require("./modules/session-middleware");
 const passport = require("./strategies/user.strategy");
 
 //express https configuration - for deplouyment
-//const httpsServer = https.createServer(options, app);
+const httpsServer = https.createServer(options, app);
 
 // Route includes
 const userRouter = require('./routes/user.router');
@@ -51,15 +51,15 @@ app.use('/api/package', packageRouter);
 app.use(express.static("build"));
 
 // App Set //
-//change this back for deployment
-//const PORT = process.env.PORT || 443;
-const PORT = 5000;
+//change this back for local development
+const PORT = process.env.PORT || 443;
+//const PORT = 5000;
 
 /** Listen * */
-//change this back for deployment
-// httpsServer.listen(PORT, () => {
-//   console.log(`Listening on port: ${PORT}`);
-// });
-app.listen(PORT, () => {
-    console.log(`Listening on port: ${PORT}`);
-  });
+//change this back for local development
+httpsServer.listen(PORT, () => {
+  console.log(`Listening on port: ${PORT}`);
+});
+//app.listen(PORT, () => {
+  //   console.log(`Listening on port: ${PORT}`);
+  // });
