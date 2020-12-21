@@ -125,7 +125,16 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
          *  postgresql://username:password@DBendpoint:Port/DBname
      - the final form should look like the next line if you used postgres as a username and sevenapples as a password:
           * `DATABASE_URL=postgresql://postgres:sevenpples@ez-onboard-trial-2.cluster-cdq0gf9yqizb.us-east-2.rds.amazonaws.com:5432/ez_onboard`
-4. Create a new EC2 instance to house the front end of the application:
+4. Add email credentials to .env file
+     - Either ask Ace forthe credentials for the zef.ezonboard@gmail.com account or create a new gmail account
+     - Ensure that the gmail account is configured to [allow less secure apps](https://www.google.com/settings/security/lesssecureapps), or it will block ez onboard from connecting.
+     - If you are using two factor authentication with the account, you will need to create a specific app password, otherwise you can use the password you typically use to login to the gmail account
+     - Instead of using the entire email address as the user email,you wil just use the part prior to `@gmail.com`, eg:
+     ```
+     USER_EMAIL=zef.ezonboard
+     PASS=password
+     ```
+5. Create a new EC2 instance to house the front end of the application:
      - From the AWS console, launch a new ec2 instance
      - Name this instance ez-onboard-server
      - Choose Ubuntu SSD AMI
@@ -135,7 +144,7 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
      - After clicking launch, create a new keypair called ez-onboard-key.pem
           * **IMPORTANT: save this .pem file in the base directory for this project (adjacent to this readme)**
      - Launch instance (will take a few minutes)
-5.  Configure ecosystem.json scripts to connect to EC2 instance
+6.  Configure ecosystem.json scripts to connect to EC2 instance
      - Note: The following directions are also detailed on [ZEF Deployment Documentation](http://docs.zefenergy.com/ocpp/deployment/)
      - Under deploy, either configure the development script or create a new script with the following credentials:
           ```
@@ -148,7 +157,7 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
           "pre-setup": "./pre-setup.script",
           "post-setup": "hash -d npm;npm install",
           "post-deploy": "pm2 startOrRestart ecosystem.json"
-6.  Run deployment script
+7.  Run deployment script
      - Open a terminal window and navigate to the folder containing this Readme file.
      - modify the permissions of your access key by running:
           * ``` chmod 400 ez-onboard-key.pem```
@@ -157,7 +166,7 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
      - Use PM2 to setup the server environment and clone the code onto the server by referencing the new entry in the ./ecosystem.json file.
           * ``` PM2 deploy development setup```
      - Note: this first attelpt will fail. Despite the earlier steps to create a key relationship between the EC2 Server and CodeCommit, the only proper way to verify that relationship is to ensure the CodeCommit domain and IP is added to the list of 'known hosts' on the EC2 server. That will not happen until the EC2 Server has verified the authenticity of the host. Unfortunately the automated script cannot handle that step as it deliberately requires user input, so it may fail. To manually perform this step, log into the EC2 server via a shell connection and attempt a manual clone of the code from Github.
-7. Manually SSH into the EC2 instance and clone the code from github:
+8. Manually SSH into the EC2 instance and clone the code from github:
      - Open a new terminal window and navigate to this directory
      - using the EC2 instance's Public IPv4 DNS address, run the following command to establish a connection:
           * `ssh -i ez-onboard-key.pem ubuntu@Public IPv4 DNS address`
@@ -169,7 +178,7 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
           *  `PM2 deploy development update`
                - Also use this command to push any subsequent code changes to the environment
      - once the delpoyment script has run successfully, you can go back and delete the manually cloned files from the instance
-8. Manually add the .env file in to the source folder in the EC2 instance
+9. Manually add the .env file in to the source folder in the EC2 instance
      - Using the SSH command from earlier, connect to the ec2 instance from your terminal 
           * `ssh -i ez-onboard-key.pem ubuntu@Public IPv4 DNS address`
      - navigate to /ez_onboarding/source
@@ -177,10 +186,12 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
           * `vi .env`
      - Copy and paste the contents from your local .env file and then exit with the command `:wq!`
      ``` 
-          SERVER_SESSION_SECRET=long_random_string
-          DATABASE_URL=postgresql://postgres:sevenpples@ez-onboard-trial-2.cluster-cdq0gf9yqizb.us-east-2.rds.amazonaws.com:5432/ez_onboard
+     SERVER_SESSION_SECRET=long_random_string
+     USER_EMAIL=email
+     PASS=password_string
+     DATABASE_URL=postgresql://postgres:sevenpples@ez-onboard-trial-2.cluster-cdq0gf9yqizb.us-east-2.rds.amazonaws.com:5432/ez_onboard
      ```
-9. Listening on Port 80 without using root
+10. Listening on Port 80 without using root
      - Inside the EC2 instance, install authbind to allow binding to port 80
           * `sudo apt-get install -y authbind`
      - Within the instance, run the following authbind commands useing the username ubuntu
@@ -197,7 +208,7 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
           * `authbind --deep pm2 update`
      - after PM2 has restarted, you should see it listening on port 80 when running the following command from within the EC2 instance:
           * `netstat p1nt`
-10. Supply SSL certificate as input to client app
+11. Supply SSL certificate as input to client app
      - Inside the EC2 instance, install Certbot, an open source tool for using certificates to enable HTTPS
           * `sudo apt-get install -y certbot`
           * `sudo certbot certonly --webroot`
@@ -220,7 +231,7 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
      - Now we need to provide permissions to read the certificates from the Let's Encrypt folder, which is restricted at present.
           * `sudo chmod -R 755 /etc/letsencrypt/live/`
           * `sudo chmod -R 755 /etc/letsencrypt/archive/`
-11. Listening on Port 443
+12. Listening on Port 443
      - Within the instance, run the same authbind commands as listed in step 9, but configuring for port 443:
           * `sudo touch /etc/authbind/byport/443`
           * `sudo chown ubuntu /etc/authbind/byport/443`
@@ -229,12 +240,12 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
           * `authbind --deep pm2 update`
      - after PM2 has restarted, you should see it listening on port 443 when running the following command from within the EC2 instance:
           * `netstat p1nt`
-12.  Revisit your connection between the EC2 Instance and the Aurora Serverless DB
+13.  Revisit your connection between the EC2 Instance and the Aurora Serverless DB
      - The two should both be on the same VPC
      - Both should be on the same subnet within the VPC
      - They should share at least one security group
      - the security group should allow access to all ports that displayed when you run `netstat P1nt` within your EC2 instance
-13. Troubleshooting
+14. Troubleshooting
      - The deployed website should now be accessable at [onboard.zefenergy.com](https://onboard.zefenergy.com/#/home)
           * if this does not display a log in screen, open developer tools in chrome to reveal console errors.
      - from within the EC2 instance, run the following command that should show an online server on port 443 and an online certserver on port 80:
