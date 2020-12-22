@@ -2,12 +2,12 @@ const express = require("express");
 require("dotenv").config();
 
 //https configuration - required for deployment
-// const fs = require('fs')
-// const https = require('https');
-// const options = {
-//   key: fs.readFileSync('/etc/letsencrypt/live/onboard.zefenergy.com/privkey.pem'),
-//   cert: fs.readFileSync('/etc/letsencrypt/live/onboard.zefenergy.com/fullchain.pem')
-// };
+const fs = require('fs')
+const https = require('https');
+const options = {
+  key: fs.readFileSync('/etc/letsencrypt/live/onboard.zefenergy.com/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/onboard.zefenergy.com/fullchain.pem')
+};
 
 //express app
 const app = express();
@@ -15,7 +15,7 @@ const bodyParser = require("body-parser");
 const sessionMiddleware = require("./modules/session-middleware");
 const passport = require("./strategies/user.strategy");
 
-//express https configuration - for deplouyment
+//express https configuration - for deployment
 const httpsServer = https.createServer(options, app);
 
 // Route includes

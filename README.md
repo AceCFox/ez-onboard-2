@@ -103,6 +103,16 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
           * `npm install`
           * `npm run build`
      - Follow the instructions under env above to create and configure a local .env file with a SERVER_SESSION_SECRET string. (used for salting and hashing passwords)
+0. Configure local server code for AWS deployment
+     - in `/server/server.js`:
+          * un-comment lines 5-10 (https configuration)
+          * un-comment line 19 (express https config)
+          * comment line 56 and un-comment line 55 (app port set)
+          * comment out lines 63-65 and un-comment lines 60-62 (using httpsServer rather than local app for listen)
+     - in `/server/modules/pool.js`
+          * remove the ! from line 7, should be:
+               `if (process.env.DATABASE_URL){`
+     - revert thses changes later if you want to use your local hosting setup for local development on ports 5000 and 3000
 1. From the AWS console, create a new Aurora Serverless DB cluster with PostgreSQL compatability.
      - name your cluster "ez-onboarding-db"
      -  set the username to postgres (default) and the master password to a unique password (e.g. sevenapples)
@@ -166,6 +176,13 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
           * ``` git push origin master```
      - Use PM2 to setup the server environment and clone the code onto the server by referencing the new entry in the ./ecosystem.json file.
           * ``` PM2 deploy development setup```
+     - If you are stopped with the following authenticity error, input `yes` to continue: 
+          ```
+          The authenticity of host 'ec2-3-139-54-5.us-east-2.compute.amazonaws.com (3.139.54.5)' can't be established.
+          ECDSA key fingerprint is SHA256:QBtrL4GZdHrLTx+r/POsB/B5kMWE+mCh2OAkQnYvc2A.
+          Are you sure you want to continue connecting (yes/no/[fingerprint])? 
+          ```
+
      - Note: this first attempt will fail. Despite the earlier steps to create a key relationship between the EC2 Server and CodeCommit, the only proper way to verify that relationship is to ensure the CodeCommit domain and IP is added to the list of 'known hosts' on the EC2 server. That will not happen until the EC2 Server has verified the authenticity of the host. Unfortunately the automated script cannot handle that step as it deliberately requires user input, so it may fail. To manually perform this step, log into the EC2 server via a shell connection and attempt a manual clone of the code from Github.
 8. Manually SSH into the EC2 instance and clone the code from github:
      - Open a new terminal window and navigate to this directory
