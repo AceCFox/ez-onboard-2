@@ -243,9 +243,9 @@ ssh-rsa`
      DATABASE_URL=postgresql://postgres:sevenpples@ez-onboard-trial-2.cluster-cdq0gf9yqizb.us-east-2.rds.amazonaws.com:5432/ez_onboard
      ```
 10. Listening on Port 80 without using root
-     - Inside the EC2 instance, install authbind to allow binding to port 80
+     - Inside the EC2 instance, navigate /home/ubungtu and run the following command to install authbind to allow binding to port 80
           * `sudo apt-get install -y authbind`
-     - Within the instance, run the following authbind commands useing the username ubuntu
+     - Within the instance, run the following authbind commands using the username ubuntu
           * `sudo touch /etc/authbind/byport/80`
           * `sudo chown ubuntu /etc/authbind/byport/80`
           * `sudo chmod 755 /etc/authbind/byport/80  `
