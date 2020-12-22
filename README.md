@@ -126,10 +126,10 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
      - the final form should look like the next line if you used postgres as a username and sevenapples as a password:
           * `DATABASE_URL=postgresql://postgres:sevenpples@ez-onboard-trial-2.cluster-cdq0gf9yqizb.us-east-2.rds.amazonaws.com:5432/ez_onboard`
 4. Add email credentials to .env file
-     - Either ask Ace forthe credentials for the zef.ezonboard@gmail.com account or create a new gmail account
+     - Either ask Ace forthe credentials for the zef.ezonboard@gmail.com account or create a new gmail account to send the app's automatically generated emails from.
      - Ensure that the gmail account is configured to [allow less secure apps](https://www.google.com/settings/security/lesssecureapps), or it will block ez onboard from connecting.
      - If you are using two factor authentication with the account, you will need to create a specific app password, otherwise you can use the password you typically use to login to the gmail account
-     - Instead of using the entire email address as the user email,you wil just use the part prior to `@gmail.com`, eg:
+     - Instead of using the entire email address as the user email,you wil just use the part prior to `@gmail.com`, e.g.:
      ```
      USER_EMAIL=zef.ezonboard
      PASS=password
@@ -143,6 +143,7 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
      - Select from existing security groups to choose the same security group associated with the database.
      - After clicking launch, create a new keypair called ez-onboard-key.pem
           * **IMPORTANT: save this .pem file in the base directory for this project (adjacent to this readme)**
+          * If you have named the keypair something different, be sure to include its filename in `.gitignore` so that it doesn't get pushed to github.
      - Launch instance (will take a few minutes)
 6.  Configure ecosystem.json scripts to connect to EC2 instance
      - Note: The following directions are also detailed on [ZEF Deployment Documentation](http://docs.zefenergy.com/ocpp/deployment/)
@@ -165,7 +166,7 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
           * ``` git push origin master```
      - Use PM2 to setup the server environment and clone the code onto the server by referencing the new entry in the ./ecosystem.json file.
           * ``` PM2 deploy development setup```
-     - Note: this first attelpt will fail. Despite the earlier steps to create a key relationship between the EC2 Server and CodeCommit, the only proper way to verify that relationship is to ensure the CodeCommit domain and IP is added to the list of 'known hosts' on the EC2 server. That will not happen until the EC2 Server has verified the authenticity of the host. Unfortunately the automated script cannot handle that step as it deliberately requires user input, so it may fail. To manually perform this step, log into the EC2 server via a shell connection and attempt a manual clone of the code from Github.
+     - Note: this first attempt will fail. Despite the earlier steps to create a key relationship between the EC2 Server and CodeCommit, the only proper way to verify that relationship is to ensure the CodeCommit domain and IP is added to the list of 'known hosts' on the EC2 server. That will not happen until the EC2 Server has verified the authenticity of the host. Unfortunately the automated script cannot handle that step as it deliberately requires user input, so it may fail. To manually perform this step, log into the EC2 server via a shell connection and attempt a manual clone of the code from Github.
 8. Manually SSH into the EC2 instance and clone the code from github:
      - Open a new terminal window and navigate to this directory
      - using the EC2 instance's Public IPv4 DNS address, run the following command to establish a connection:
