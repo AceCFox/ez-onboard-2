@@ -28,9 +28,9 @@
     "deploy": {
         "development": {
             "user": "ubuntu",
-            "host": "ec2-3-20-238-164.us-east-2.compute.amazonaws.com",
-            "key": "./ez-onboard-key.pem",
-            "ref": "origin/master",
+            "host": "ec2-3-139-54-5.us-east-2.compute.amazonaws.com",
+            "key": "./ez-onboard-key2.pem",
+            "ref": "origin/main",
             "repo": "https://github.com/matthewblackler/zefnetonboard.git",
             "path": "/home/ubuntu/ez-onboarding",
             "pre-setup": "./pre-setup.script",
