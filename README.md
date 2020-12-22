@@ -191,7 +191,40 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
      - Once successfully connected to the EC2 instance, manually clone over the code from github using the command:
           * `git clone https://github.com/matthewblackler/zefnetonboard.git`
      - You will have to log in to a github account with access to the above repo using a username and password.
-     - Once the clone is complete you can go back and re-run the setup command which should succeed now!
+     - Inside the ec2 instance, create a public SSH key for github to enable deployment:
+          ```
+          $ ssh-keygen -t rsa
+
+          Generating public/private rsa key pair.
+          Enter file in which to save the key (/home/ubuntu/.ssh/id_rsa):
+          Enter passphrase (empty for no passphrase):
+          Enter same passphrase again:
+          Your identification has been saved in /home/ubuntu/.ssh/id_rsa.
+          Your public key has been saved in /home/ubuntu/.ssh/id_rsa.pub.
+          The key fingerprint is:
+          SHA256:7T0+UAX1vDhJAcrk8OeSAVTNJwdZa0ufnCukUu6qleA
+          The key's randomart image is:
+          +---[RSA 2048]----+
+          |      .+.ooo*=.  |
+          |        B .= o+o |
+          |         * .+*  o|
+          |         .= = * +|
+          |       .So.+ * * |
+          |      . ..*.o . .|
+          |       E +.+o. . |
+          |        . o....  |
+          |       .......   |
+          +----[SHA256]-----+
+          ```
+     - Copy the public ket details onto the clipboard:
+          * $ `tail -10 /home/ubuntu/.ssh/id_rsa.pub
+ssh-rsa` 
+          *  `AAAAB3Nzv+...................xw0nIF6kOOtx3iN`
+     - Go to your github account to add this key to your SSH keys
+          * click settings in the upper right hand corner
+          * Under SSH and GPG keys, click **new SSH key**
+          * paste the key from your clipboard, and give it the title ez-onboard.
+     - Once the clone is complete and the SSH key set up you can go back and re-run the setup command which should succeed now!
           *  `PM2 deploy development setup`
           *  `PM2 deploy development update`
                - Also use this command to push any subsequent code changes to the environment
