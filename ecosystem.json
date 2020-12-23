@@ -31,7 +31,7 @@
             "host": "ec2-3-17-109-22.us-east-2.compute.amazonaws.com",
             "key": "./ez-onboard-key2.pem",
             "ref": "origin/master",
-            "repo": "git+ssh://https://github.com/matthewblackler/zefnetonboard.git",
+            "repo": "git+ssh://github.com/matthewblackler/zefnetonboard.git",
             "path": "/home/ubuntu/ez-onboarding",
             "pre-setup": "./pre-setup.script",
             "post-setup": "hash -d npm;npm install",
