@@ -64,10 +64,7 @@ typings/
 # ignore package-lock as it complicates merging
 package-lock.json
 
-#put your email credentials in the file called mailer.js
-mailer.js
-
-#aws key
+#aws keys
 ez-onboard-key.pem
 ez-onboard-key2.pem
 
