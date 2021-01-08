@@ -52,7 +52,7 @@ app.use(express.static("build"));
 
 // App Set //
 //change this back for local development
-const PORT = process.env.PORT || 443;
+const PORT = 443;
 //const PORT = 5000;
 
 /** Listen * */
