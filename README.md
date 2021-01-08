@@ -139,7 +139,7 @@ Before pushing to an AWS ec2 instance, run `npm run build` in terminal. This wil
      - Either ask Ace forthe credentials for the zef.ezonboard@gmail.com account or create a new gmail account to send the app's automatically generated emails from.
      - Ensure that the gmail account is configured to [allow less secure apps](https://www.google.com/settings/security/lesssecureapps), or it will block ez onboard from connecting.
      - If you are using two factor authentication with the account, you will need to create a specific app password, otherwise you can use the password you typically use to login to the gmail account
-     - Instead of using the entire email address as the user email,you wil just use the part prior to `@gmail.com`, e.g.:
+     - Instead of using the entire email address as the user email, you will just use the part prior to `@gmail.com`, e.g.:
      ```
      USER_EMAIL=zef.ezonboard
      PASS=password
@@ -243,7 +243,7 @@ ssh-rsa`
      DATABASE_URL=postgresql://postgres:sevenpples@ez-onboard-trial-2.cluster-cdq0gf9yqizb.us-east-2.rds.amazonaws.com:5432/ez_onboard
      ```
 10. Listening on Port 80 without using root
-     - Inside the EC2 instance, navigate /home/ubungtu and run the following command to install authbind to allow binding to port 80
+     - Inside the EC2 instance, navigate /home/ubuntu and run the following command to install authbind to allow binding to port 80
           * `sudo apt-get install -y authbind`
      - Within the instance, run the following authbind commands using the username ubuntu
           * `sudo touch /etc/authbind/byport/80`
