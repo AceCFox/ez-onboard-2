@@ -1,0 +1,40 @@
+{
+  "files": {
+    "main.css": "/static/css/main.03dfe83e.chunk.css",
+    "main.js": "/static/js/main.db307985.chunk.js",
+    "main.js.map": "/static/js/main.db307985.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.ddf8fe10.js",
+    "runtime-main.js.map": "/static/js/runtime-main.ddf8fe10.js.map",
+    "static/css/2.566a5680.chunk.css": "/static/css/2.566a5680.chunk.css",
+    "static/js/2.6359e206.chunk.js": "/static/js/2.6359e206.chunk.js",
+    "static/js/2.6359e206.chunk.js.map": "/static/js/2.6359e206.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.ee5fa24775448b3a03b704a4ab46c116.js": "/precache-manifest.ee5fa24775448b3a03b704a4ab46c116.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.566a5680.chunk.css.map": "/static/css/2.566a5680.chunk.css.map",
+    "static/css/main.03dfe83e.chunk.css.map": "/static/css/main.03dfe83e.chunk.css.map",
+    "static/js/2.6359e206.chunk.js.LICENSE.txt": "/static/js/2.6359e206.chunk.js.LICENSE.txt",
+    "static/media/7LLX9.jpg": "/static/media/7LLX9.00b96791.jpg",
+    "static/media/inter.css": "/static/media/Inter.var.f065685b.woff2",
+    "static/media/breaker2.jpg": "/static/media/breaker2.535e9916.jpg",
+    "static/media/dualHeadStylized.jpg": "/static/media/dualHeadStylized.6ea806d8.jpg",
+    "static/media/dualheadped.jpg": "/static/media/dualheadped.8d6efbb3.jpg",
+    "static/media/packageReview.jpeg": "/static/media/packageReview.f956027e.jpeg",
+    "static/media/packageReviewGreyscale.jpeg": "/static/media/packageReviewGreyscale.45e959ef.jpeg",
+    "static/media/serial.png": "/static/media/serial.f4fe0945.png",
+    "static/media/singleHeadStylized.jpg": "/static/media/singleHeadStylized.4c17e515.jpg",
+    "static/media/singleheadped.jpg": "/static/media/singleheadped.7c7aceb0.jpg",
+    "static/media/wallMount.jpg": "/static/media/wallMount.c323cd44.jpg",
+    "static/media/wallMountStylized.jpg": "/static/media/wallMountStylized.d83d030b.jpg",
+    "static/media/zefUser.jpeg": "/static/media/zefUser.2974a6b5.jpeg",
+    "static/media/zefpro.png": "/static/media/zefpro.120340f6.png",
+    "static/media/zefproArrow.png": "/static/media/zefproArrow.029fe9cb.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ddf8fe10.js",
+    "static/css/2.566a5680.chunk.css",
+    "static/js/2.6359e206.chunk.js",
+    "static/css/main.03dfe83e.chunk.css",
+    "static/js/main.db307985.chunk.js"
+  ]
+}
